@@ -1,0 +1,24 @@
+#!/bin/bash
+mkdir -p /home/`logname`/.crypticcoin-params
+cp /usr/lib/crypticcoin-wallet/resources/sprout* /home/`logname`/.crypticcoin-params
+
+
+mkdir -p /home/`logname`/.crypticcoin
+if [ -e /home/`logname`/.crypticcoin/crypticcoin.conf ]; then
+	cp -a /home/`logname`/.crypticcoin/crypticcoin.conf /home/`logname`/.crypticcoin/crypticcoin.bak
+fi
+
+mkdir -p /home/`logname`/.crypticcoin/tor_exe
+cp /usr/lib/crypticcoin-wallet/resources/tor /home/`logname`/.crypticcoin/tor_exe
+
+echo -e "rpcuser="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 26 ; echo '')"\n""rpcpassword="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 26 ; echo '')"\n""rpcport=23202""\n""port=23303""\n""daemon=0""\n""listen=1""\n""server=1""\n""rpcallowip=127.0.0.1""\n""tor_exe_path=/home/"`logname`"/.crypticcoin/tor_exe/tor""\n""proxy=127.0.0.1:9089""\n""bind=127.0.0.1""\n""addnode=2yt4fstq5oacwwh5.onion"> /home/`logname`/.crypticcoin/crypticcoin.conf
+
+chown -R `logname`:`logname` /home/`logname`/crypticcoin.conf
+
+cp /usr/lib/crypticcoin-wallet/resources/crypticcoin.desktop /home/`logname`/Desktop/
+
+chmod +x /home/`logname`/Desktop/crypticcoin.desktop
+
+echo `logname`
+
+echo "Exit"

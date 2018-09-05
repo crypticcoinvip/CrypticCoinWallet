@@ -1,0 +1,13 @@
+[Desktop Entry]
+Comment=CrypticCoin Wallet
+Exec=/usr/lib/crypticcoin-wallet/crypticcoin-wallet
+GenericName[en_US]=CrypticCoin-Wallet
+GenericName=CrypticCoin-Wallet
+Icon=/usr/lib/crypticcoin-wallet/resources/app/src/assets/icons/crypticcoin-icofile.ico
+Name[en_US]=CrypticCoin Wallet
+Name=CrypticCoin Wallet
+Categories=Network;
+StartupNotify=false
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/CrypticCoin;

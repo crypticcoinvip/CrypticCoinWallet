@@ -1,0 +1,10 @@
+{
+    "dest": "builds/",
+    "icon": "src/assets/images/crypticcoin-ai.png",
+    "categories": [
+      "Utility"
+    ],
+    "lintianOverrides": [
+      "changelog-file-missing-in-native-package"
+    ]
+  }

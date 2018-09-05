@@ -1,0 +1,11 @@
+node_modules/*
+builds/*
+dist/*
+.DS_Store
+..bfg-report/
+*.jar
+.DS_Store
+yarn-error.log
+crypticcoind
+crypticcoind.exe
+tor/

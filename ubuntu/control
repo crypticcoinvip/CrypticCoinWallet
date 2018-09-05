@@ -1,0 +1,6 @@
+Package: crypticcoin-debian
+Version: 0.0.1
+Maintainer: Vitaly Shvetsov <nosferatu2995@mail.ru>
+Architecture: all
+Section: misc
+Description: CrypticCoin Wallet.

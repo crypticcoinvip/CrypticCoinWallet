@@ -1,0 +1,172 @@
+.logo {
+    content: url('../images/logo.png');
+}
+
+.logo-svg {
+    content: url('../images/crypticcoin-ai.svg');
+}
+
+.container{
+    width: 100%;
+    max-width:initial;
+    > .row{
+        margin: 0;
+        > .col{
+            padding: 0;
+        }
+    }
+}
+
+.tabs .indicator {
+    background-color: #ffc600;
+}
+
+.tabs .tab a {
+    color: #ffc600;
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+    background-color: transparent;
+    color: #ffc600;
+}
+
+.tabs {
+    background-color: transparent;
+}
+
+.collapsible-body {
+    background-color: #fff;
+}
+
+.collapsible-body.transactions {
+    padding: 1rem;
+}
+
+.collapsible-header {
+    align-items: center;
+}
+
+.collapsible-header.transactions {
+    padding: 0;
+}
+
+.collapsible-header i {
+    width: 24px;
+    height: 24px;
+    font-size: inherit;
+}
+
+li + li.nothing-found {
+    display: none;
+}
+
+li.nothing-found {
+    height: 61px;
+    background: #fff;
+}
+
+input + svg {
+    display: none;
+}
+
+input[value]:not([value=""]) + svg {
+    display: block;
+}
+
+.btn, .btn-large, .btn-flat {
+    padding: 0 1.5rem;
+}
+
+.btn + .btn {
+    margin-left: 12px;
+}
+
+.dropdown-content.active {
+    width: inherit !important;
+}
+
+.dropdown-content {
+    width: inherit !important;
+}
+
+.modal-footer .btn:hover, .modal-footer .btn-large:hover {
+    background-color: rgba(0,0,0,0.1);
+}
+
+#bg {
+    position: absolute;
+    right: 0px;
+    max-width: 900px;
+}
+
+#account, #addresses, #settings {
+    padding: 0;
+}
+
+#ajax-loading-screen {
+    background-color: #fff;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 1000000000;
+}
+
+.loading-icon {
+    background: url("../images/crypticcoin-ai.png") no-repeat center center / 72px auto;
+}
+
+@keyframes spinning_animation {
+    0% { transform:scale(1) rotate(0deg); -o-transform:scale(1) rotate(0deg) }
+    50% { transform:scale(0.8) rotate(360deg); -o-transform:scale(0.8) rotate(360deg) }
+    100% { transform:scale(1) rotate(720deg); -o-transform:scale(1) rotate(720deg) }
+}
+
+@-webkit-keyframes spinning_animation {
+    0% { -webkit-transform:scale(1) rotate(0deg) }
+    50% { -webkit-transform:scale(0.8) rotate(360deg) }
+    100% { -webkit-transform:scale(1) rotate(720deg) }
+}
+
+.loading-icon.spin {
+    animation: 2s cubic-bezier(0.63,0.045,0.34,1) 0s normal none infinite spinning_animation;
+    -webkit-animation: 2s cubic-bezier(0.63,0.045,0.34,1) 0s normal none infinite spinning_animation;
+}
+
+.switch label input[type=checkbox]:checked+.lever:after {
+    background-color: #424242;
+}
+
+.switch label input[type=checkbox]:checked+.lever {
+    background-color: #ccc;
+}
+
+.modal .modal-content {
+    padding: 12px;
+}
+
+#ajax-loading-screen[data-ajax-transitions="true"], #ajax-loading-screen[data-ajax-transitions="true"] .loading-icon {
+    display: block;
+    transition: opacity 1s ease-in-out;
+    opacity: 1;
+}
+
+#ajax-loading-screen[data-ajax-transitions="false"], #ajax-loading-screen[data-ajax-transitions="false"] .loading-icon {
+    display: none;
+    transition: opacity 1s ease-in-out;
+    opacity: 0;
+}
+
+#ajax-loading-screen .loading-icon {
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: block;
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}

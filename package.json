@@ -1,0 +1,218 @@
+{
+  "name": "crypticcoin-wallet",
+  "version": "1.0.1",
+  "description": "CrypticCoin Wallet.",
+  "author": "CrypticCoin Currency Team",
+  "build": {
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "nosferatu500",
+        "repo": "electron-updater-example"
+      }
+    ],
+    "appId": "io.crypticcoin.electronwallet",
+    "extraResources": [
+      "crypticcoind.exe"
+    ],
+    "files": [
+      "dist/",
+      "main.js",
+      "package.json"
+    ],
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "mac": {
+      "category": "your.crypticcoin.wallet.finance",
+      "target": [
+        "zip"
+      ]
+    },
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    }
+  },
+  "jest": {
+    "verbose": true,
+    "collectCoverage": true,
+    "moduleFileExtensions": [
+      "jsx",
+      "js"
+    ],
+    "collectCoverageFrom": [
+      "src/**/**.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/vendor/**"
+    ],
+    "coverageDirectory": "./coverage",
+    "transform": {
+      "\\.(ts|tsx)$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "/test/.*\\.(ts|tsx|js)$"
+  },
+  "license": "MIT",
+  "main": "main.js",
+  "scripts": {
+    "publish": "yarn build && build --mac --win -p always",
+    "postinstall": "electron-builder install-app-deps",
+    "dist": "yarn clean && yarn run build && electron-builder",
+    "publishDist": "yarn clean && yarn run build && electron-builder -p always",
+    "test": "jest --watch",
+    "test-ci": "jest",
+    "prod": "NODE_ENV=prod webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
+    "dev": "NODE_ENV=dev webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
+    "build": "yarn clean && NODE_ENV=prod webpack --mode production --config=./webpack.build.config.js",
+    "package": "webpack --mode production --config webpack.build.config.js",
+    "postpackage": "electron-packager ./ --all --out=./builds --icon=src/assets/icons/crypticcoin-icofile.ico --overwrite",
+    "clean": "rimraf dist",
+    "fix": "node_modules/.bin/prettier --write \"src/**/*.js\" && node_modules/.bin/eslint --fix src/",
+    "debian": "electron-installer-debian --src builds/crypticcoin-wallet-linux-x64/ --arch amd64 --config debian.json",
+    "mac": "electron-installer-dmg ./builds/crypticcoin-wallet-darwin-x64 app.app crypticcoin-wallet --out=builds --overwrite --icon=src/assets/images/crypticcoin-ai.png"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
+    "babel-jest": "^23.4.2",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-dev-expression": "^0.2.1",
+    "babel-plugin-flow-runtime": "^0.17.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-decorators": "^6.24.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.5",
+    "babel-plugin-transform-es2015-classes": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-es2017-node7": "^0.5.2",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-react-hmre": "^1.1.1",
+    "babel-preset-react-optimize": "^1.0.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chalk": "^2.4.1",
+    "concurrently": "^3.6.1",
+    "cross-env": "^5.2.0",
+    "cross-spawn": "^6.0.5",
+    "css-loader": "^1.0.0",
+    "detect-port": "^1.2.3",
+    "electron": "^2.0.7",
+    "electron-builder": "^20.28.1",
+    "electron-devtools-installer": "^2.2.4",
+    "electron-installer-debian": "^0.8.1",
+    "electron-installer-dmg": "^2.0.0",
+    "electron-packager": "^12.1.0",
+    "electron-rebuild": "^1.8.2",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.1",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-formatter-pretty": "^1.3.0",
+    "eslint-import-resolver-webpack": "^0.10.1",
+    "eslint-plugin-babel": "^5.1.0",
+    "eslint-plugin-compat": "^2.5.1",
+    "eslint-plugin-flowtype": "^2.50.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jest": "^21.21.0",
+    "eslint-plugin-jsx-a11y": "6.1.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-react": "^7.11.1",
+    "express": "^4.16.3",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "fbjs-scripts": "^0.8.3",
+    "file-loader": "^1.1.11",
+    "flow-bin": "^0.78.0",
+    "flow-runtime": "^0.17.0",
+    "flow-typed": "^2.5.1",
+    "html-webpack-plugin": "^3.2.0",
+    "husky": "^0.14.3",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^23.0.0",
+    "jest-styled-components": "^5.0.1",
+    "jquery": "^3.3.1",
+    "lint-staged": "^7.2.0",
+    "minimist": "^1.2.0",
+    "mobx-react-devtools": "^6.0.2",
+    "node-sass": "^4.9.2",
+    "npm-logical-tree": "^1.2.1",
+    "prettier": "^1.14.1",
+    "prettierrc": "^0.0.0-5",
+    "pretty-quick": "^1.6.0",
+    "react-hot-loader": "^4.3.4",
+    "react-test-renderer": "^16.4.2",
+    "redux-logger": "^3.0.6",
+    "regenerator-runtime": "^0.12.1",
+    "rimraf": "^2.6.2",
+    "sass-loader": "^7.1.0",
+    "sinon": "^4.2.2",
+    "source-map-loader": "^0.2.3",
+    "spectron": "^3.8.0",
+    "style-loader": "^0.22.1",
+    "stylefmt": "^6.0.2",
+    "stylelint": "^9.4.0",
+    "stylelint-config-standard": "^18.2.0",
+    "uglifyjs-webpack-plugin": "1.2.7",
+    "url-loader": "^1.0.1",
+    "webpack": "^4.16.5",
+    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5",
+    "webpack-merge": "^4.1.4"
+  },
+  "dependencies": {
+    "bitrate": "^1.0.4",
+    "csstype": "^2.5.6",
+    "electron-context-menu": "^0.10.0",
+    "electron-log": "^2.2.17",
+    "electron-react-titlebar": "^0.8.1",
+    "electron-store": "^1.3.0",
+    "electron-updater": "^3.1.1",
+    "global": "^4.3.2",
+    "highcharts": "^6.1.1",
+    "history": "^4.7.2",
+    "html-loader": "^0.5.5",
+    "i18n-react": "^0.6.4",
+    "materialize-css": "^0.100.2",
+    "menubar": "^5.2.3",
+    "mobx": "^5.0.3",
+    "mobx-react": "^5.2.3",
+    "moment": "^2.22.2",
+    "qrcode.react": "^0.8.0",
+    "react": "^16.4.2",
+    "react-animations": "^1.0.0",
+    "react-dom": "^16.4.2",
+    "react-highcharts": "^16.0.2",
+    "react-material-icon-svg": "^1.6.1",
+    "react-materialize": "^2.4.2",
+    "react-moment": "^0.7.9",
+    "react-popover": "^0.5.7",
+    "react-qr-svg": "^2.1.0",
+    "react-router": "^4.3.1",
+    "react-router-dom": "^4.3.1",
+    "react-toastify": "^4.1.0",
+    "rechart": "^0.0.1",
+    "recharts": "^1.1.0",
+    "request-progress": "^3.0.0",
+    "styled-components": "^3.4.2",
+    "tor-request": "^2.2.0",
+    "uuid": "^3.3.2"
+  }
+}

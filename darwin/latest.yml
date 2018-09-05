@@ -1,0 +1,8 @@
+version: 0.7.17
+files:
+  - url: crypticcoin-wallet.Setup.0.7.17.exe
+    sha512: c9f87e6bc43c37b431515d388d7e355f61d0a595a75f25e03127adfbe13bbadab4f454f6de36183c9b2e3415073fac07c9763e9d10111ffd189668b223fba872
+    size: 139868804
+path: crypticcoin-wallet.Setup.0.7.17.exe
+sha512: c9f87e6bc43c37b431515d388d7e355f61d0a595a75f25e03127adfbe13bbadab4f454f6de36183c9b2e3415073fac07c9763e9d10111ffd189668b223fba872
+releaseDate: '2018-08-14T03:15:13.342Z'
