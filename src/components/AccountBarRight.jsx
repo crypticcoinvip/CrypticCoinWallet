@@ -187,16 +187,16 @@ class AccountBarRight extends React.Component {
             {i18nReact.translate('accountbar.xvgprice')}
           </Title>
           <h6 style={{ color: '#232323' }}>
-            NOT FOUND
-{/* {formatterPrice.format(
+            {/* NOT FOUND */}
+            {formatterPrice.format(
               this.props.CoinStatsStore.priceWithCurrency,
-            )} */}
+            )}
           </h6>
         </div>
         <div>
           <Title>
-{i18nReact.translate('statistics.cap')}
-</Title>
+            {i18nReact.translate('statistics.cap')}
+          </Title>
           <h6 style={{ color: '#232323' }}>
             NOT FOUND
 {/* {bigNumber.format(
@@ -206,16 +206,16 @@ class AccountBarRight extends React.Component {
         </div>
         <div>
           <Title>
-{i18nReact.translate('statistics.change')}
-</Title>
+            {i18nReact.translate('statistics.change')}
+          </Title>
           <h6 style={{ color: '#232323' }}>
-            NOT FOUND
-{/* {i18nReact.translate('statistics.hourchange')}{' '}
-            {this.props.CoinStatsStore.getUpdatedStats.hourChange} %<br />
+            {/* NOT FOUND */}
+            {/* {i18nReact.translate('statistics.hourchange')}{' '}
+          {this.props.CoinStatsStore.getUpdatedStats.hourChange} %<br /> */}
             {i18nReact.translate('statistics.daychange')}{' '}
             {this.props.CoinStatsStore.getUpdatedStats.dayChange > 0 ? '+' + this.props.CoinStatsStore.getUpdatedStats.dayChange : this.props.CoinStatsStore.getUpdatedStats.dayChange } %<br />
             {i18nReact.translate('statistics.weekchange')}{' '}
-            {this.props.CoinStatsStore.getUpdatedStats.weekChange > 0 ? '+' + this.props.CoinStatsStore.getUpdatedStats.weekChange : this.props.CoinStatsStore.getUpdatedStats.weekChange } % */}
+            {this.props.CoinStatsStore.getUpdatedStats.weekChange > 0 ? '+' + this.props.CoinStatsStore.getUpdatedStats.weekChange : this.props.CoinStatsStore.getUpdatedStats.weekChange } %
           </h6>
         </div>
       </AccountBarRightContainer>

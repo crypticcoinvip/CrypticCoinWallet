@@ -217,7 +217,7 @@
     "tbalance": "Transparent",
     "zbalance": "Private",
     "xvgbalance": "Total balance",
-    "xvgusd": "CRYP IN {currency}",
+    "xvgusd": "TOTAL IN {currency}",
     "xvgprice": "CRYP PRICE"
   },
   "footer": {

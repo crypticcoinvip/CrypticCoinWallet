@@ -110,23 +110,10 @@ class AccountBarLeft extends React.Component {
         style: 'decimal',
         minimumFractionDigits: 2,
       },
-    )    
+    )
 
     return (
       <AccountBarLeftContainer className="container">
-        <div>
-          <Title>
-            {i18nReact.translate('accountbar.xvgusd', {
-              currency: this.props.SettingsStore.getCurrency,
-            })}
-          </Title>
-          <h6 style={{ color: '#232323' }}>
-            NOT FOUND{/* {formatter.format(
-              this.props.AccountInformationStore.getBalance.total *
-                this.props.CoinStatsStore.priceWithCurrency,
-            )} */}
-          </h6>
-        </div>
         <div>
           <Title>{i18nReact.translate('accountbar.xvgbalance')}</Title>
           <h6 style={{ color: '#232323' }}>
@@ -155,7 +142,21 @@ class AccountBarLeft extends React.Component {
           </h6>
         </div>
         <div>
-          <Title>            
+          <Title>
+            {i18nReact.translate('accountbar.xvgusd', {
+              currency: this.props.SettingsStore.getCurrency,
+            })}
+          </Title>
+          <h6 style={{ color: '#232323' }}>
+            {/*NOT FOUND*/}
+            {formatter.format(
+              this.props.AccountInformationStore.getBalance.total *
+              this.props.CoinStatsStore.priceWithCurrency,
+            )}
+          </h6>
+        </div>
+        <div>
+          <Title>
             {moment().format('MMM YYYY')}{' '}
             {i18nReact.translate('transaction.summary')}
           </Title>
