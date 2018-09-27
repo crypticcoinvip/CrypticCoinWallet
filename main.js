@@ -73,6 +73,20 @@ const createProc = (processPath) => {
   })
 }
 
+const runCli = (processPath, cmd) => {
+  let cli = childProcess.spawn(
+    processPath,
+    [
+      `-rpcuser=${cmd}`,
+    ],
+    {
+      stdio: ['inherit', 'pipe', 'inherit'],
+      detached: false,
+    },
+  )
+  cli.unref()
+}
+
 if (process.env.NODE_ENV !== 'dev') {
   log.info('Creating the CrypticCoin daemon - prod')
   createProc(`${process.resourcesPath}/crypticcoind`)
@@ -126,7 +140,8 @@ function createWindow() {
     while (ccProcess && !ccProcess.killed) {
       try {
         if (process.platform === 'win32') {
-          process.kill(ccProcess.pid, 'SIGKILL')
+          //process.kill(ccProcess.pid, 'SIGKILL')
+          runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop')
           const appName = 'tor.exe'
           exec(`taskkill /im ${appName} /t`, (err, stdout, stderr) => {
             if (err) {
