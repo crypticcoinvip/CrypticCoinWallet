@@ -60,18 +60,18 @@ class AccountBarLeft extends React.Component {
     })
   }
 
-  getMonthlyOuputFormatted(XVGSummaryFormatter) {
-    return `${XVGSummaryFormatter.format(this.props.TransactionStore.monthlyOutput)}`
+  getMonthlyOuputFormatted(CRYPSummaryFormatter) {
+    return `${CRYPSummaryFormatter.format(this.props.TransactionStore.monthlyOutput)}`
   }
 
-  getMonthlyIncomeFormatted(XVGSummaryFormatter) {
-    return `${XVGSummaryFormatter.format(
+  getMonthlyIncomeFormatted(CRYPSummaryFormatter) {
+    return `${CRYPSummaryFormatter.format(
       this.props.TransactionStore.monthlyIncome,
     )}`
   }
 
-  getMonthlyMinedFormatted(XVGSummaryFormatter) {
-    return `${XVGSummaryFormatter.format(
+  getMonthlyMinedFormatted(CRYPSummaryFormatter) {
+    return `${CRYPSummaryFormatter.format(
       this.props.TransactionStore.monthlyMined,
     )}`
   }
@@ -95,7 +95,7 @@ class AccountBarLeft extends React.Component {
       },
     )
 
-    const XVGformatter = new Intl.NumberFormat(
+    const CRYPformatter = new Intl.NumberFormat(
       CCCacheStore.get('locale', 'en-US'),
       {
         style: 'decimal',
@@ -104,7 +104,7 @@ class AccountBarLeft extends React.Component {
       },
     )
 
-    const XVGSummaryFormatter = new Intl.NumberFormat(
+    const CRYPSummaryFormatter = new Intl.NumberFormat(
       CCCacheStore.get('locale', 'en-US'),
       {
         style: 'decimal',
@@ -115,9 +115,9 @@ class AccountBarLeft extends React.Component {
     return (
       <AccountBarLeftContainer className="container">
         <div>
-          <Title>{i18nReact.translate('accountbar.xvgbalance')}</Title>
+          <Title>{i18nReact.translate('accountbar.crypbalance')}</Title>
           <h6 style={{ color: '#232323' }}>
-            {XVGformatter.format(
+            {CRYPformatter.format(
               this.props.AccountInformationStore.getBalance.total,
             )}{' '}
             CRYP
@@ -126,7 +126,7 @@ class AccountBarLeft extends React.Component {
         <div>
           <Title>{i18nReact.translate('accountbar.tbalance')}</Title>
           <h6 style={{ color: '#232323' }}>
-            {XVGformatter.format(
+            {CRYPformatter.format(
               this.props.AccountInformationStore.getBalance.transparent,
             )}{' '}
             CRYP
@@ -135,7 +135,7 @@ class AccountBarLeft extends React.Component {
         <div>
           <Title>{i18nReact.translate('accountbar.zbalance')}</Title>
           <h6 style={{ color: '#232323' }}>
-            {XVGformatter.format(
+            {CRYPformatter.format(
               this.props.AccountInformationStore.getBalance.private,
             )}{' '}
             CRYP
@@ -143,7 +143,7 @@ class AccountBarLeft extends React.Component {
         </div>
         <div>
           <Title>
-            {i18nReact.translate('accountbar.xvgusd', {
+            {i18nReact.translate('accountbar.crypusd', {
               currency: this.props.SettingsStore.getCurrency,
             })}
           </Title>
@@ -166,19 +166,19 @@ class AccountBarLeft extends React.Component {
               height={14}
               style={{ marginRight: '5px' }}
             />
-            {this.getMonthlyOuputFormatted(XVGSummaryFormatter)}<br />
+            {this.getMonthlyOuputFormatted(CRYPSummaryFormatter)}<br />
             <MoneyIn
               width={14}
               height={14}
               style={{ marginRight: '5px' }}
             />
-            {this.getMonthlyIncomeFormatted(XVGSummaryFormatter)}<br />
+            {this.getMonthlyIncomeFormatted(CRYPSummaryFormatter)}<br />
             <Mined
               width={14}
               height={14}
               style={{ marginRight: '5px' }}
             />
-            {this.getMonthlyMinedFormatted(XVGSummaryFormatter)}
+            {this.getMonthlyMinedFormatted(CRYPSummaryFormatter)}
           </h6>
         </div>
       </AccountBarLeftContainer>

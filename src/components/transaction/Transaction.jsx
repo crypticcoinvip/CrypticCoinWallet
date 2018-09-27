@@ -104,7 +104,7 @@ class Transaction extends React.Component {
   }
 
   render() {
-    const xvgFormatter = new Intl.NumberFormat(
+    const crypFormatter = new Intl.NumberFormat(
       this.props.SettingsStore.getLocale,
       {
         minimumSignificantDigits: 1,
@@ -226,7 +226,7 @@ class Transaction extends React.Component {
               {moment.unix(time).fromNow()}
             </TransactionDetailsHeader>
             <TransactionDetailsMoney className="row">
-              CRYP {xvgFormatter.format(Math.abs(amount + fee))}{' '}
+              CRYP {crypFormatter.format(Math.abs(amount + fee))}{' '}
               {category.includes('receive') ? '+' : '-'}
             </TransactionDetailsMoney>
             <TransactionDetailsFooter className="row">

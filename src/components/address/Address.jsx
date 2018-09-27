@@ -36,7 +36,7 @@ class Address extends React.Component {
   }
 
   render() {
-    const xvgFormatter = new Intl.NumberFormat(
+    const crypFormatter = new Intl.NumberFormat(
       this.props.SettingsStore.getLocale,
       {
         minimumSignificantDigits: 1,

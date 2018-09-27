@@ -27,12 +27,12 @@ const TransactionTitle = styled.div`
 `;
 
 class TransactionList extends Component {
-  getMonthlyOuputFormatted(XVGSummaryFormatter) {
-    return XVGSummaryFormatter.format(this.props.TransactionStore.monthlyOutput);
+  getMonthlyOuputFormatted(CRYPSummaryFormatter) {
+    return CRYPSummaryFormatter.format(this.props.TransactionStore.monthlyOutput);
   }
 
-  getMonthlyIncomeFormatted(XVGSummaryFormatter) {
-    return `+${XVGSummaryFormatter.format(
+  getMonthlyIncomeFormatted(CRYPSummaryFormatter) {
+    return `+${CRYPSummaryFormatter.format(
       this.props.TransactionStore.monthlyIncome,
     )}`;
   }
@@ -42,7 +42,7 @@ class TransactionList extends Component {
   }
 
   render() {
-    const XVGFormatter = new Intl.NumberFormat(
+    const CRYPFormatter = new Intl.NumberFormat(
       this.props.SettingsStore.getLocale,
       {
         style: 'decimal',

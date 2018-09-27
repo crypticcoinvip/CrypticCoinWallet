@@ -189,8 +189,8 @@
       "Enter a label for this address to add it in your addressbook",
     "amount": "Amount",
     "amountInfo": "Transaction fee, 0.01 CRYP",
-    "xvgUSD": "CRYP in {currency}",
-    "balanceXVG": "Balance in CRYP",
+    "crypUSD": "CRYP in {currency}",
+    "balanceCRYP": "Balance in CRYP",
     "sendButton": "Send",
     "walletAfterTransaction": "Your wallet balance after the transaction:",
     "sendWarning":
@@ -216,9 +216,9 @@
   "accountbar": {
     "tbalance": "Transparent",
     "zbalance": "Private",
-    "xvgbalance": "Total balance",
-    "xvgusd": "TOTAL IN {currency}",
-    "xvgprice": "CRYP PRICE"
+    "crypbalance": "Total balance",
+    "crypusd": "TOTAL IN {currency}",
+    "crypprice": "CRYP PRICE"
   },
   "footer": {
     "wallet": "Official CrypticCoin Wallet",

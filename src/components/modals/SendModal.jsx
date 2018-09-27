@@ -284,7 +284,7 @@ class SendModal extends React.Component {
                   <div className="row">
                     <div className="col s5">
                       <BalanceTitle>
-                        {i18nReact.translate('sendPanel.xvgUSD')}
+                        {i18nReact.translate('sendPanel.crypUSD')}
                       </BalanceTitle>
                       <Balance>
                         $
@@ -293,7 +293,7 @@ class SendModal extends React.Component {
                     </div>
                     <div className="col s6 offset-s1">
                       <BalanceTitle>
-                        {i18nReact.translate('sendPanel.balanceXVG')}
+                        {i18nReact.translate('sendPanel.balanceCRYP')}
                       </BalanceTitle>
                       <Balance>
                         {this.getBalance().total.toLocaleString(this.getLocaleId())}

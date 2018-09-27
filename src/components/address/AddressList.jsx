@@ -26,7 +26,7 @@ const AddressTitle = styled.div`
 class AddressList extends Component {
 
   render() {
-    const XVGFormatter = new Intl.NumberFormat(
+    const CRYPFormatter = new Intl.NumberFormat(
       this.props.SettingsStore.getLocale,
       {
         style: 'decimal',

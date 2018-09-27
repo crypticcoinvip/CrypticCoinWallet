@@ -48,12 +48,12 @@ class AccountBarRight extends React.Component {
     this.setState({ receiveOpen: !this.state.receiveOpen });
   }
 
-  getMonthlyOuputFormatted(XVGSummaryFormatter) {
-    return `${XVGSummaryFormatter.format(this.props.TransactionStore.monthlyOutput)}`;
+  getMonthlyOuputFormatted(CRYPSummaryFormatter) {
+    return `${CRYPSummaryFormatter.format(this.props.TransactionStore.monthlyOutput)}`;
   }
 
-  getMonthlyIncomeFormatted(XVGSummaryFormatter) {
-    return `+${XVGSummaryFormatter.format(
+  getMonthlyIncomeFormatted(CRYPSummaryFormatter) {
+    return `+${CRYPSummaryFormatter.format(
       this.props.TransactionStore.monthlyIncome,
     )}`;
   }
@@ -81,7 +81,7 @@ class AccountBarRight extends React.Component {
       },
     );
 
-    const XVGformatter = new Intl.NumberFormat(
+    const CRYPformatter = new Intl.NumberFormat(
       CCCacheStore.get('locale', 'en-US'),
       {
         style: 'decimal',
@@ -90,7 +90,7 @@ class AccountBarRight extends React.Component {
       },
     );
 
-    const XVGSummaryFormatter = new Intl.NumberFormat(
+    const CRYPSummaryFormatter = new Intl.NumberFormat(
       CCCacheStore.get('locale', 'en-US'),
       {
         style: 'decimal',
@@ -184,7 +184,7 @@ class AccountBarRight extends React.Component {
         </div>
         <div>
           <Title>
-            {i18nReact.translate('accountbar.xvgprice')}
+            {i18nReact.translate('accountbar.crypprice')}
           </Title>
           <h6 style={{ color: '#232323' }}>
             {/* NOT FOUND */}
