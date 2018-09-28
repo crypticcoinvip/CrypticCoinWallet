@@ -151,6 +151,8 @@ function createWindow() {
             console.log('stdout', stdout)
             console.log('stderr', stderr)
           })
+
+          break
         } else {
           process.kill(-(ccProcess.pid + 1), 'SIGINT')
         }
