@@ -81,7 +81,7 @@
     "dev": "NODE_ENV=dev webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
     "build": "yarn clean && NODE_ENV=prod webpack --mode production --config=./webpack.build.config.js",
     "package": "webpack --mode production --config webpack.build.config.js",
-    "postpackage": "electron-packager ./ --all --out=./builds --icon=src/assets/icons/crypticcoin-icofile.ico --overwrite",
+    "postpackage": "electron-packager ./ --all --ignore=/node_modules --out=./builds --icon=src/assets/icons/crypticcoin-icofile.ico --overwrite",
     "clean": "rimraf dist",
     "fix": "node_modules/.bin/prettier --write \"src/**/*.js\" && node_modules/.bin/eslint --fix src/",
     "debian": "electron-installer-debian --src builds/crypticcoin-wallet-linux-x64/ --arch amd64 --config debian.json",
