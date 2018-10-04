@@ -55,9 +55,12 @@ Step 2
 - copy ./darwin/*/* directory to ./builds/crypticcoin-wallet-darwin-x64/crypticcoin-wallet.app/Contents/Resources/
 
 Step 3
-- copy crypticcoind to ./builds/crypticcoin-wallet-darwin-x64/crypticcoin-wallet.app/Contents/Resources/
+- copy libevent and openssl libraries to ./builds/crypticcoin-wallet-darwin-x64/crypticcoin-wallet.app/Contents/Resources/
 
 Step 4
+- copy crypticcoind to ./builds/crypticcoin-wallet-darwin-x64/crypticcoin-wallet.app/Contents/Resources/
+
+Step 5
 pkgbuild --component ./builds/crypticcoin-wallet-darwin-x64/crypticcoin-wallet.app --scripts ./scripts  --install-location /Applications CrypticCoin.pkg
 
 

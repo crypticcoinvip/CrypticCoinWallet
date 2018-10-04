@@ -2,10 +2,10 @@
 mkdir -p ~/Library/Application\ Support/CrypticcoinParams
 cp /Applications/crypticcoin-wallet.app/Contents/Resources/sprout* ~/Library/Application\ Support/CrypticcoinParams
 
-mkdir -p /usr/local/Cellar/openssl/1.0.2o_2/
+mkdir -p /usr/local/Cellar/openssl/1.0.2p/
 cp -r /Applications/crypticcoin-wallet.app/Contents/Resources/libevent /usr/local/opt
 cp -r /Applications/crypticcoin-wallet.app/Contents/Resources/openssl /usr/local/opt
-cp -r /Applications/crypticcoin-wallet.app/Contents/Resources/openssl/* /usr/local/Cellar/openssl/1.0.2o_2/
+cp -r /Applications/crypticcoin-wallet.app/Contents/Resources/openssl/* /usr/local/Cellar/openssl/1.0.2p/
 
 mkdir -p ~/Library/Application\ Support/CrypticCoin
 if [ -e ~/Library/Application\ Support/CrypticCoin/CrypticCoin.conf ]; then

@@ -4,7 +4,7 @@ const {
 const path = require('path')
 const url = require('url')
 const childProcess = require('child_process')
-const { autoUpdater } = require('electron-updater')
+// const { autoUpdater } = require('electron-updater')
 const log = require('electron-log')
 const { exec } = require('child_process')
 
@@ -15,10 +15,10 @@ require('electron-context-menu')({
   }],
 })
 
-autoUpdater.autoDownload = false
-
-autoUpdater.logger = log
-autoUpdater.logger.transports.file.level = 'info'
+// autoUpdater.autoDownload = false
+//
+// autoUpdater.logger = log
+// autoUpdater.logger.transports.file.level = 'info'
 log.info('App starting...')
 
 let mainWindow
@@ -212,24 +212,24 @@ function createLoadingWindow() {
 }
 
 app.on('ready', () => {
-  autoUpdater
-    .checkForUpdatesAndNotify()
-    .then((value) => {
-      log.info(value)
-      log.info(
-        `Checking update - Info: ${(value
-          && value.updateInfo.stagingPercentage)
-        || -1}%`,
-      )
-    })
-    .then(() => {
+  // autoUpdater
+  //   .checkForUpdatesAndNotify()
+  //   .then((value) => {
+  //     log.info(value)
+  //     log.info(
+  //       `Checking update - Info: ${(value
+  //         && value.updateInfo.stagingPercentage)
+  //       || -1}%`,
+  //     )
+  //   })
+  //   .then(() => {
       createLoadingWindow()
       createWindow()
-    })
-    .catch((e) => {
-      createLoadingWindow()
-      createWindow()
-    })
+    // })
+    // .catch((e) => {
+    //   createLoadingWindow()
+    //   createWindow()
+    // })
 })
 
 /*
