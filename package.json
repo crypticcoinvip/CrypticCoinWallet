@@ -80,6 +80,7 @@
     "prod": "NODE_ENV=prod webpack --config webpack.build.config.js --mode production && electron --noDevServer .",
     "dev": "NODE_ENV=dev webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
     "build": "yarn clean && NODE_ENV=prod webpack --mode production --config=./webpack.build.config.js",
+    "dirty-build": "NODE_ENV=prod webpack --mode production --config=./webpack.build.config.js",
     "package": "webpack --mode production --config webpack.build.config.js",
     "postpackage": "electron-packager ./ --all --out=./builds --icon=src/assets/icons/crypticcoin-icofile.ico --overwrite",
     "clean": "rimraf dist",
