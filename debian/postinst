@@ -11,7 +11,7 @@ fi
 mkdir -p /home/`logname`/.crypticcoin/tor_exe
 cp /usr/lib/crypticcoin-wallet/resources/tor /home/`logname`/.crypticcoin/tor_exe
 
-echo -e "rpcuser="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 26 ; echo '')"\n""rpcpassword="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 26 ; echo '')"\n""rpcport=23202""\n""port=23303""\n""daemon=0""\n""listen=1""\n""server=1""\n""rpcallowip=127.0.0.1""\n""tor_exe_path=/home/"`logname`"/.crypticcoin/tor_exe/tor""\n""proxy=127.0.0.1:9089""\n""bind=127.0.0.1""\n""addnode=2yt4fstq5oacwwh5.onion"> /home/`logname`/.crypticcoin/crypticcoin.conf
+echo -e "rpcuser="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 26 ; echo '')"\n""rpcpassword="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 26 ; echo '')"\n""rpcport=23202""\n""port=23303""\n""daemon=0""\n""listen=1""\n""server=1""\n""rpcallowip=127.0.0.1""\n""tor_exe_path=$HOME/.crypticcoin/tor_exe/tor""\n""proxy=127.0.0.1:9089""\n""bind=127.0.0.1""\n""addnode=2yt4fstq5oacwwh5.onion"> /home/`logname`/.crypticcoin/crypticcoin.conf
 
 chown -R `logname`:`logname` /home/`logname`/crypticcoin.conf
 
