@@ -29,7 +29,6 @@ Step 3
 
 Step 4
 - cp ../ubuntu/crypticcoin.desktop usr/lib/crypticcoin-wallet/resources
-- cp ../ubuntu/tor usr/lib/crypticcoin-wallet/resources
 - cp ../ubuntu/postinst DEBIAN
 - cp ../ubuntu/control DEBIAN
 

@@ -4,3 +4,4 @@ Maintainer: Integral Team <feedback@crypticcoin.io>
 Architecture: all
 Section: misc
 Description: CrypticCoin Wallet.
+Depends: tor
