@@ -77,7 +77,9 @@ const runCli = (processPath, cmd) => {
   let cli = childProcess.spawn(
     processPath,
     [
-      `-rpcuser=${cmd}`,
+      `-rpcuser=${auth.user}`,
+      `-rpcpassword=${auth.pass}`,
+      `${cmd}`,
     ],
     {
       stdio: ['inherit', 'pipe', 'inherit'],
