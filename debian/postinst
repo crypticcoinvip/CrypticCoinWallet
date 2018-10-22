@@ -16,7 +16,7 @@ echo -e "rpcuser="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 26 ; echo '')
 
 chown -R $SUDO_USER:$SUDO_USER ~/.crypticcoin/
 
-cp /usr/lib/crypticcoin-wallet/resources/crypticcoin.desktop ~/.local/shared/applications/
+cp /usr/lib/crypticcoin-wallet/resources/crypticcoin.desktop ~/.local/share/applications/
 
 echo `logname`
 
