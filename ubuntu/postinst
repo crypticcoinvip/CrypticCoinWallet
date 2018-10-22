@@ -14,8 +14,6 @@ echo -e "rpcuser="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 26 ; echo '')
 chown -R $SUDO_USER:$SUDO_USER ~/.crypticcoin/crypticcoin.conf
 chown -R $SUDO_USER:$SUDO_USER ~/.crypticcoin/crypticcoin.bak
 
-cp /usr/lib/crypticcoin-wallet/resources/crypticcoin.desktop $HOME/Desktop/
-
-chmod +x $HOME/Desktop/crypticcoin.desktop
+cp /usr/lib/crypticcoin-wallet/resources/crypticcoin.desktop ~/.local/shared/applications/
 
 echo "Exit"
