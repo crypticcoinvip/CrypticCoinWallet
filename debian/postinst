@@ -2,6 +2,7 @@
 mkdir -p $HOME/.crypticcoin-params
 cp /usr/lib/crypticcoin-wallet/resources/sprout* $HOME/.crypticcoin-params
 
+chown -R $SUDO_USER:$SUDO_USER ~/.crypticcoin-params
 
 mkdir -p $HOME/.crypticcoin
 if [ -e $HOME/.crypticcoin/crypticcoin.conf ]; then
@@ -13,7 +14,7 @@ cp /usr/lib/crypticcoin-wallet/resources/tor $HOME/.crypticcoin/tor_exe
 
 echo -e "rpcuser="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 26 ; echo '')"\n""rpcpassword="$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 26 ; echo '')"\n""rpcport=23202""\n""port=23303""\n""daemon=0""\n""listen=1""\n""server=1""\n""rpcallowip=127.0.0.1""\n""tor_exe_path=/home/"`logname`"/.crypticcoin/tor_exe/tor""\n""proxy=127.0.0.1:9089""\n""bind=127.0.0.1""\n""addnode=2yt4fstq5oacwwh5.onion"> $HOME/.crypticcoin/crypticcoin.conf
 
-chown -R `logname`:`logname` $HOME/crypticcoin.conf
+chown -R $SUDO_USER:$SUDO_USER ~/.crypticcoin/
 
 cp /usr/lib/crypticcoin-wallet/resources/crypticcoin.desktop ~/.local/shared/applications/
 
