@@ -72,11 +72,6 @@ const TransactionDetailProp = styled.default.div`
   align-items: center;
 `
 
-const ExternalLinks = styled.default.a`
-  margin-right: 5px;
-  margin-left: 5px;
-`
-
 class Transaction extends React.Component {
   getType(amount, category, fee) {
     if (amount !== 0) {
@@ -259,23 +254,17 @@ class Transaction extends React.Component {
             </div>
             <div className="row">
               <TransactionDetailProp className="col s12">
-                <Info
-                  height={15}
-                  width={15}
-                  style={{ fill: 'rgba(100,100,100, 0.7)', marginRight: '7px' }}
-                />{' '}
-                {T.default.translate('transaction.item.more')}
-                <ExternalLinks href="#" onClick={() => 
+                <a href="#" onClick={() => 
                   shell.openExternal("https://explorer.crypticcoin.io/tx/" + txid)
                 }>
                   {T.default.translate('transaction.item.opentransaction')}
-                </ExternalLinks>
-                {'  '}
-                <ExternalLinks href="#" onClick={() => 
+                </a>
+                {'\u00A0\u00A0'}
+                <a href="#" onClick={() => 
                   shell.openExternal("https://explorer.crypticcoin.io/block/" + blockhash)
                 }>
                   {T.default.translate('transaction.item.openblock')}
-                </ExternalLinks>
+                </a>
               </TransactionDetailProp>
             </div>
           </div>  
