@@ -89,7 +89,7 @@ class SendModal extends React.Component {
       address, amount, isPassword, password, warningAddressTo, warningAddressFrom, warningAmount,
     } = this.state
 
-    const { from } = this.props.AddressStore.lastSend
+    const from = this.props.AddressStore.lastSend
 
     const { AccountInformationStore } = this.props
 
