@@ -195,13 +195,13 @@ class AccountBarRight extends React.Component {
         </div>
         <div>
           <Title>
-            {i18nReact.translate('statistics.cap')}
+            {i18nReact.translate('statistics.volume')}
           </Title>
           <h6 style={{ color: '#232323' }}>
-            NOT FOUND
-{/* {bigNumber.format(
-              this.props.CoinStatsStore.getUpdatedStats.cap,
-            )} */}
+            {/* NOT FOUND */}
+            {bigNumber.format(
+              this.props.CoinStatsStore.getUpdatedStats.volume,
+            )}
           </h6>
         </div>
         <div>
@@ -210,12 +210,12 @@ class AccountBarRight extends React.Component {
           </Title>
           <h6 style={{ color: '#232323' }}>
             {/* NOT FOUND */}
-            {/* {i18nReact.translate('statistics.hourchange')}{' '}
-          {this.props.CoinStatsStore.getUpdatedStats.hourChange} %<br /> */}
+            {i18nReact.translate('statistics.hourchange')}{' '}
+            {(this.props.CoinStatsStore.getUpdatedStats.hourChange > 0 ? '+' : '') + this.props.CoinStatsStore.getUpdatedStats.hourChange.toFixed(2)} %<br />
             {i18nReact.translate('statistics.daychange')}{' '}
-            {this.props.CoinStatsStore.getUpdatedStats.dayChange > 0 ? '+' + this.props.CoinStatsStore.getUpdatedStats.dayChange : this.props.CoinStatsStore.getUpdatedStats.dayChange } %<br />
+            {(this.props.CoinStatsStore.getUpdatedStats.dayChange > 0 ? '+' : '') + this.props.CoinStatsStore.getUpdatedStats.dayChange.toFixed(2) } %<br />
             {i18nReact.translate('statistics.weekchange')}{' '}
-            {this.props.CoinStatsStore.getUpdatedStats.weekChange > 0 ? '+' + this.props.CoinStatsStore.getUpdatedStats.weekChange : this.props.CoinStatsStore.getUpdatedStats.weekChange } %
+            {(this.props.CoinStatsStore.getUpdatedStats.weekChange > 0 ? '+' : '') + this.props.CoinStatsStore.getUpdatedStats.weekChange.toFixed(2) } %
           </h6>
         </div>
       </AccountBarRightContainer>

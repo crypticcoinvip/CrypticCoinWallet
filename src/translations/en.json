@@ -235,6 +235,7 @@
     "daychange": "24 hour",
     "weekchange": "7 day",
     "cmc": "CMC Position",
-    "chart": "7-days Chart"
+    "chart": "7-days Chart",
+    "volume": "Volume"
   }
 }
