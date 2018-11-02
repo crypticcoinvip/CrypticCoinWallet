@@ -55,8 +55,8 @@ class Unlock extends Component {
           <div className="row">
             <div className="col s9 offset-s3">
               <div className="container">
-                <form onSubmit={this.unlocking.bind(this)}>
-                  <div>
+                <div className="container" style={{ marginBottom: '20px' }}>
+                  <form onSubmit={this.unlocking.bind(this)}>
                     <input
                       unlocked={this.state.unlocked.toString()}
                       placeholder={T.translate('unlock.inputTitle')}
@@ -70,19 +70,19 @@ class Unlock extends Component {
                     {this.state.unlocked ? (
                       <label>{T.translate('unlock.info')}</label>
                     ) : (
-                      <FalseInputHandler>
-                        {T.translate('unlock.wrongpass')}
-                      </FalseInputHandler>
-                    )}
-                  </div>
-                  <button 
-                    className="btn grey darken-3 waves-effect waves-light"
-                    type="submit" 
-                    onClick={this.unlocking.bind(this)}
-                  >
-                    {T.translate('unlock.button')}
-                  </button>
-                </form>
+                        <FalseInputHandler>
+                          {T.translate('unlock.wrongpass')}
+                        </FalseInputHandler>
+                      )}
+                  </form>
+                </div>
+                <button
+                  className="btn grey darken-3 waves-effect waves-light"
+                  type="submit"
+                  onClick={this.unlocking.bind(this)}
+                >
+                  {T.translate('unlock.button')}
+                </button>
               </div>
             </div>
           </div>
