@@ -255,12 +255,24 @@ class Transaction extends React.Component {
             <div className="row">
               <TransactionDetailProp className="col s12">
                 <a href="#" onClick={() => 
+                  shell.openExternal("http://p5rp7jlyjbnhvnp6.onion/tx/" + txid)
+                }>
+                  {T.default.translate('transaction.item.opentransactionsec')}
+                </a>
+                {'\u00A0\u00A0'}
+                <a href="#" onClick={() => 
+                  shell.openExternal("http://p5rp7jlyjbnhvnp6.onion/block/" + blockhash)
+                }>
+                  {T.default.translate('transaction.item.openblocksec')}
+                </a>
+                {'\u00A0\u00A0'}
+                <a href="#" style={{color:'#aaa'}} onClick={() => 
                   shell.openExternal("https://explorer.crypticcoin.io/tx/" + txid)
                 }>
                   {T.default.translate('transaction.item.opentransaction')}
                 </a>
                 {'\u00A0\u00A0'}
-                <a href="#" onClick={() => 
+                <a href="#" style={{color:'#aaa'}} onClick={() => 
                   shell.openExternal("https://explorer.crypticcoin.io/block/" + blockhash)
                 }>
                   {T.default.translate('transaction.item.openblock')}

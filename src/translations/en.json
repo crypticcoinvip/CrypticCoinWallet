@@ -78,7 +78,9 @@
       "outofsync": "Confirmations: Synchronizing...",
       "more": "Further information:",
       "opentransaction": "Open Transaction",
-      "openblock": "Open Block"
+      "openblock": "Open Block",
+      "opentransactionsec": "Open Transaction (secure link)",
+      "openblocksec": "Open Block (secure link)"
     }
   },
   "settings": {
