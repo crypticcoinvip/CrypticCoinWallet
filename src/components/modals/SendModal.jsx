@@ -318,7 +318,7 @@ class SendModal extends React.Component {
                 <button
                   onClick={() => this.sendTransaction()}
                   className={
-                    this.state.status === SendState.SENDING ? 'btn amber lighten-2 disabled' : 'btn amber lighten-2'
+                    this.state.status === SendState.SENDING ? 'btn grey darken-3 disabled' : 'btn grey darken-3'
                   }
                 >
                   {this.state.status === SendState.OPEN

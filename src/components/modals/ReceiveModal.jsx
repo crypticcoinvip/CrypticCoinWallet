@@ -76,7 +76,7 @@ class ReceiveModal extends React.Component {
                   <label>{i18nReact.translate('receive.labelInfo')}</label><br />
                 </div>
                 <button
-                  className="btn amber lighten-2 waves-effect waves-light"
+                  className="btn grey darken-3 waves-effect waves-light"
                   onClick={
                     !this.state.isLoadingAddress
                       ? () => this.createNewAddress()
@@ -93,7 +93,7 @@ class ReceiveModal extends React.Component {
                   <Repeat style={{ fill: '#fff', marginRight: '10px' }} />{i18nReact.translate('receive.taddress')}
                 </button>
                 <button
-                  className="btn amber lighten-2 waves-effect waves-light"
+                  className="btn grey darken-3 waves-effect waves-light"
                   onClick={
                     !this.state.isLoadingZAddress
                       ? () => this.createNewZAddress()

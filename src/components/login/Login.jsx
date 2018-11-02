@@ -98,7 +98,7 @@ class Login extends React.Component {
                 />
               </div>
               <button
-                className="btn amber lighten-2 waves-effect waves-light grey darken-3"
+                className="btn waves-effect waves-light grey darken-3"
                 onClick={this.signUp}
                 style={{
                   display: 'inline-flex',
@@ -134,7 +134,7 @@ class Login extends React.Component {
                 />
               </div>
               <button
-                className="btn amber lighten-2 waves-effect waves-light grey darken-3"
+                className="btn waves-effect waves-light grey darken-3"
                 onClick={this.signUp}
                 style={{
                   display: 'inline-flex',

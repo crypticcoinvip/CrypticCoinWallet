@@ -115,7 +115,7 @@ class ShieldCoinbaseModal extends React.Component {
                   <label>{i18nReact.translate('shield_coinbase_modal.label')}</label><br />
                 </div>
                 <button
-                  className="btn amber lighten-2 waves-effect waves-light"
+                  className="btn grey darken-3 waves-effect waves-light"
                   onClick={
                     !this.state.isLoadingZAddress
                       ? () => this.createNewZAddress()
@@ -134,8 +134,8 @@ class ShieldCoinbaseModal extends React.Component {
                 <button
                   className={
                     !this.state.zaddress || this.state.status === SendState.SENDING
-                      ? "btn amber lighten-2 waves-effect waves-light disabled"
-                      : "btn amber lighten-2 waves-effect waves-light"
+                      ? "btn grey darken-3 waves-effect waves-light disabled"
+                      : "btn grey darken-3 waves-effect waves-light"
                   }
                   onClick={
                     !this.state.isLoadingZAddress

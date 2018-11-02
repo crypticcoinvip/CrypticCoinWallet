@@ -87,7 +87,7 @@ class Unlock extends Component {
                     )}
                   </div>
                   <button 
-                    className="btn amber lighten-2 waves-effect waves-light"
+                    className="btn grey darken-3 waves-effect waves-light"
                     type="submit" 
                     onClick={this.locking.bind(this)}
                   >
