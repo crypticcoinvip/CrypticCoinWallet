@@ -52,15 +52,16 @@ class ReceiveModal extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col s3">
-              <QRCodeReact
-                value={this.state.address ? this.state.address : 'Please generate address'}
-                size={128}
-                bgColor={'#ffffff'}
-                fgColor={'#152f36'}
-                level={'M'}
-                height={128}
-                width={128} 
-              />
+              {this.state.address ?
+                <QRCodeReact
+                  value={this.state.address}
+                  size={128}
+                  bgColor={'#ffffff'}
+                  fgColor={'#152f36'}
+                  level={'M'}
+                  height={128}
+                  width={128} />
+                : null}
             </div>
             <div className="col s9">
               <div className="container">
