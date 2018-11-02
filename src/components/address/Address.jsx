@@ -35,6 +35,16 @@ class Address extends React.Component {
     return this.props.time + 90 * 60 - moment().unix() > 0
   }
 
+  // toggleSend() {
+  //   $('#sendModal').modal('open');
+  //   this.setState({ sendOpen: !this.state.sendOpen });
+  // }
+
+  // toggleReceive() {
+  //   $('#receiveModal').modal('open');
+  //   this.setState({ receiveOpen: !this.state.receiveOpen });
+  // }  
+
   render() {
     const crypFormatter = new Intl.NumberFormat(
       this.props.SettingsStore.getLocale,
@@ -134,7 +144,22 @@ class Address extends React.Component {
               {type == 't' ? 'transparent' : 'private'}
             </AddressDetailsFooter>
             <div className="row" style={{ wordWrap: 'break-word' }}>
-              {address}
+              <div>{address}</div>
+              <a href="#" onClick={() => {
+                  this.props.AddressStore.lastSend = address;
+                  $('#sendModal').modal('open');
+                }
+              }>
+                {T.default.translate('account-bar.send')}
+              </a>
+              {'\u00A0\u00A0'}
+              <a href="#" onClick={() => {
+                  this.props.AddressStore.lastReceive = address;
+                  $('#receiveModal').modal('open');
+                }
+              }>
+                {T.default.translate('account-bar.receive')}
+              </a>
             </div>
           </div>  
         </div>        

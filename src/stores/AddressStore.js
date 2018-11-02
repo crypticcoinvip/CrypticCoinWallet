@@ -86,6 +86,8 @@ decorate(AddressStore, {
   getAddressList: computed,
   lastAddress: computed,
   searchValue: computed,
+  lastSend: observable,
+  lastReceive: observable
 });
 
 const store = new AddressStore();

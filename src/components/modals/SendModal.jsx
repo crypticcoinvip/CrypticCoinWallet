@@ -86,8 +86,10 @@ class SendModal extends React.Component {
 
   sendTransaction() {
     const {
-      address, amount, from, isPassword, password, warningAddressTo, warningAddressFrom, warningAmount,
+      address, amount, isPassword, password, warningAddressTo, warningAddressFrom, warningAmount,
     } = this.state
+
+    const { from } = this.props.AddressStore.lastSend
 
     const { AccountInformationStore } = this.props
 
@@ -158,7 +160,6 @@ class SendModal extends React.Component {
                       this.setState({
                         amount: 0,
                         address: '',
-                        from: '',
                         label: '',
                         status: SendState.OPEN,
                       });
@@ -174,7 +175,6 @@ class SendModal extends React.Component {
                 this.setState({
                   amount: 0,
                   address: '',
-                  from: '',
                   label: '',
                   status: SendState.OPEN,
                 });
@@ -231,8 +231,9 @@ class SendModal extends React.Component {
                   {i18nReact.translate('sendPanel.sender')}
                 </Info>
                 <Input
-                  value={this.state.from}
-                  onChange={e => this.setState({ from: e.target.value })}
+                  value={this.props.AddressStore.lastSend}
+                  name="from"
+                  onChange={e => { this.props.AddressStore.lastSend = e.target.value }}
                   placeholder={
                     i18nReact.translate('sendPanel.zaddressplaceholder')
                   }
@@ -372,4 +373,5 @@ export default inject(
   'SettingsStore',
   'CoinStatsStore',
   'AccountInformationStore',
+  'AddressStore'
 )(observer(SendModal));

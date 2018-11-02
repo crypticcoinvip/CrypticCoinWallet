@@ -29,7 +29,10 @@ class ReceiveModal extends React.Component {
     })
     this.props
       .AccountInformationStore.receiveNewAddress()
-      .then(address => this.setState({ address, isLoadingAddress: false }))
+      .then(address => {
+        this.setState({ isLoadingAddress: false })
+        this.props.AddressStore.lastReceive = address
+      })
   }
 
   createNewZAddress() {
@@ -38,7 +41,10 @@ class ReceiveModal extends React.Component {
     })
     this.props
       .AccountInformationStore.receiveNewZAddress()
-      .then(address => this.setState({ address, isLoadingZAddress: false }))
+      .then(address => {
+        this.setState({ isLoadingZAddress: false })
+        this.props.AddressStore.lastReceive = address
+      })
   }
 
   render() {
@@ -52,9 +58,9 @@ class ReceiveModal extends React.Component {
         <div className="container">
           <div className="row">
             <div className="col s3">
-              {this.state.address ?
+              {this.props.AddressStore.lastReceive ?
                 <QRCodeReact
-                  value={this.state.address}
+                  value={this.props.AddressStore.lastReceive}
                   size={128}
                   bgColor={'#ffffff'}
                   fgColor={'#152f36'}
@@ -68,11 +74,12 @@ class ReceiveModal extends React.Component {
                 <div className="container" style={{ marginBottom: '20px' }}>
                   <Info>{i18nReact.translate('receive.address')}</Info>
                   <Input
+                    name="address"
                     placeholder={
                       i18nReact.translate('receive.generate')
                     }
                     onChange={() => {}}
-                    value={this.state.address}
+                    value={this.props.AddressStore.lastReceive}
                   />
                   <label>{i18nReact.translate('receive.labelInfo')}</label><br />
                 </div>
@@ -119,4 +126,4 @@ class ReceiveModal extends React.Component {
   }
 }
 
-export default inject('AccountInformationStore')(observer(ReceiveModal))
+export default inject('AccountInformationStore', 'AddressStore')(observer(ReceiveModal))
