@@ -13,6 +13,7 @@ import CurrencySetting from './settingItems/CurrencySetting'
 import Keymap from './keymaps/Keymap'
 import RegionSetting from './settingItems/RegionSetting'
 import ShieldCoinbase from './blockchain/ShieldCoinbase'
+import Reindex from './blockchain/Reindex'
 import ShieldTo from './blockchain/ShieldTo'
 import AutoShieldCoinbase from './blockchain/AutoShieldCoinbase'
 import ExportWallet from './backup/ExportWallet'
@@ -79,6 +80,7 @@ class SettingsTab extends React.Component {
             <div className="collapsible-body">
               <div className="container">
                 <div className="row">
+                  <Reindex />
                   <AutoShieldCoinbase />
                   <ShieldTo />
                   <ShieldCoinbase />

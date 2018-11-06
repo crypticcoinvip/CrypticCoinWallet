@@ -19,6 +19,11 @@
     "shield": "Shield",
     "label": "Generate new Z-Address or paste existing one"
   },
+  "reindex_modal": {
+    "title": "Reindex blockchain",
+    "subtitle": "Click Reindex to renew blockchain state. Restart app once it will be closed. This will not affect to your wallet data and keys.",
+    "reindex": "Reindex"
+  },
   "debug": {
     "types": {
       "General": "General",
@@ -108,6 +113,11 @@
       "name": "Shield coinbase",
       "shield": "Shield",
       "explain": "Click to convert mined CRYP from transparent to private."
+    },
+    "reindex": {
+      "name": "Reindex blockchain",
+      "shield": "Reindex",
+      "explain": "Click to reindex blockchain. Restart app once it will be closed. This will not affect to your wallet data and keys."
     },
     "shieldto": {
       "name": "Shield to address",
