@@ -26,6 +26,16 @@
 ;Interface Settings
 
   !define MUI_ABORTWARNING
+  !define NAME "CrypticCoin"
+  !define PRODUCT_VERSION "1.0.7"
+  !define MANUFACTURER "Integral Team"
+  !define PRODUCT_SITE "https://crypticcoin.io/"
+!ifndef PRODUCT_UNINST_KEY
+  !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}"
+!endif
+!ifndef PRODUCT_UNINST_ROOT_KEY
+  !define PRODUCT_UNINST_ROOT_KEY "HKLM"
+!endif
 
 ;--------------------------------
 ;Pages
@@ -59,21 +69,28 @@ Section
   SetOutPath "$INSTDIR"
 
   ;ADD YOUR OWN FILES HERE...
-  file /r build\crypticcoin-wallet-win32-x64\*.*
+  file /r crypticcoin-wallet-win32-x64\*.*
 
   ;Store installation folder
   WriteRegStr HKCU "Software\CrypticCoin" "" $INSTDIR
 
   ;Create uninstaller
   WriteUninstaller "$INSTDIR\Uninstall.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "${NAME}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\Uninstall.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "Publisher" "${MANUFACTURER}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_SITE}"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\Uninstall.exe"
+  WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "InstDir" "$INSTDIR"
 
 
-  CreateShortCut "$DESKTOP\CrypticCoin.lnk" "$INSTDIR\CrypticCoin.exe" ""
+  CreateShortCut "$DESKTOP\CrypticCoin.lnk" "$INSTDIR\CrypticCoin-wallet.exe" ""
 
   ;create start-menu items
   CreateDirectory "$SMPROGRAMS\CrypticCoin"
   CreateShortCut "$SMPROGRAMS\CrypticCoin\Uninstall.lnk" "$INSTDIR\Uninstall.exe" "" "$INSTDIR\Uninstall.exe" 0
-  CreateShortCut "$SMPROGRAMS\CrypticCoin\CrypticCoin.lnk" "$INSTDIR\CrypticCoin.exe" "" "$INSTDIR\CrypticCoin.exe" 0
+  CreateShortCut "$SMPROGRAMS\CrypticCoin\CrypticCoin.lnk" "$INSTDIR\CrypticCoin-wallet.exe" "" "$INSTDIR\CrypticCoin-wallet.exe" 0
 
   CreateDirectory "$PROFILE\AppData\Roaming\CrypticcoinParams"
   CopyFiles "$INSTDIR\resources\sprout-proving.key" "$PROFILE\AppData\Roaming\CrypticcoinParams"
@@ -84,6 +101,7 @@ Section
 
   CreateDirectory "C:\Crypticcoin\Tor"
   CopyFiles "$INSTDIR\resources\win32" "C:\Crypticcoin\Tor"
+  Delete "$INSTDIR\resources\*.key"
 
 SectionEnd
 
@@ -110,14 +128,12 @@ Section "Uninstall"
   RmDir  "$SMPROGRAMS\CrypticCoin"
 
   Delete "C:\Crypticcoin\*.*"
-  RmDir  "C:\Crypticcoin"
-
-  Delete "$PROFILE\AppData\Roaming\Crypticcoin\*.*"
-  RmDir  "$PROFILE\AppData\Roaming\Crypticcoin"
+  RmDir /r "C:\Crypticcoin"
 
   Delete "$PROFILE\AppData\Roaming\CrypticcoinParams\*.*"
   RmDir  "$PROFILE\AppData\Roaming\CrypticcoinParams"
 
   DeleteRegKey /ifempty HKCU "Software\CrypticCoin"
+  DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
 
 SectionEnd
