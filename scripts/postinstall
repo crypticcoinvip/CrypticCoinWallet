@@ -11,7 +11,7 @@ mkdir -p ~/Library/Application\ Support/CrypticCoin
 if [ -e ~/Library/Application\ Support/CrypticCoin/CrypticCoin.conf ]; then
     cp -a ~/Library/Application\ Support/CrypticCoin/CrypticCoin.conf ~/Library/Application\ Support/CrypticCoin/CrypticCoin.bak
 fi
-echo -e "rpcuser="$(head /dev/urandom | LC_ALL=C tr -dc A-Za-z0-9 | head -c 26 ; echo '')"\n""rpcpassword="$(head /dev/urandom | LC_ALL=C tr -dc A-Za-z0-9 | head -c 26 ; echo '')"\n""rpcport=23202""\n""port=23303""\n""daemon=0""\n""listen=1""\n""server=1""\n""rpcallowip=127.0.0.1""\n""tor_exe_path=/Applications/crypticcoin-wallet.app/Contents/Resources/tor/darwin/tor""\n""onlynet=onion""\n""bind=127.0.0.1""\n""addnode=5wa52xtesl4yjnhp.onion:23303""\n""addnode=axjnhxwkhaqle7dh.onion:23303"> ~/Library/Application\ Support/CrypticCoin/CrypticCoin.conf
+echo -e "rpcuser="$(head /dev/urandom | LC_ALL=C tr -dc A-Za-z0-9 | head -c 26 ; echo '')"\n""rpcpassword="$(head /dev/urandom | LC_ALL=C tr -dc A-Za-z0-9 | head -c 26 ; echo '')"\n""rpcport=23202""\n""port=23303""\n""daemon=0""\n""listen=1""\n""server=1""\n""rpcallowip=127.0.0.1/8""\n""tor_exe_path=/Applications/crypticcoin-wallet.app/Contents/Resources/tor/darwin/tor""\n""onlynet=onion""\n""bind=127.0.0.1""\n""addnode=5wa52xtesl4yjnhp.onion:23303""\n""addnode=axjnhxwkhaqle7dh.onion:23303"> ~/Library/Application\ Support/CrypticCoin/CrypticCoin.conf
 
 chown -R "$USER":staff ~/Library/Application\ Support/CrypticCoin
 
