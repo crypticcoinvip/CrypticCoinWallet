@@ -19,6 +19,7 @@ require('electron-context-menu')({
 //
 // autoUpdater.logger = log
 // autoUpdater.logger.transports.file.level = 'info'
+
 log.info('App starting...')
 
 let mainWindow
@@ -225,13 +226,15 @@ app.on('ready', () => {
   //     )
   //   })
   //   .then(() => {
-      createLoadingWindow()
-      createWindow()
-    // })
-    // .catch((e) => {
-    //   createLoadingWindow()
-    //   createWindow()
-    // })
+  //     createLoadingWindow()
+  //     createWindow()
+  //   })
+  //   .catch((e) => {
+  //     createLoadingWindow()
+  //     createWindow()
+  //   })
+  createLoadingWindow()
+  createWindow()  
 })
 
 /*
@@ -250,43 +253,43 @@ app.on('activate', () => {
     createWindow()
   }
 })
-/*
-autoUpdater.on('update-available', () => {
-  dialog.showMessageBox({
-    type: 'info',
-    title: 'Found Updates',
-    message: 'Found updates, do you want update now?',
-    buttons: ['Sure', 'No'],
-  }, (buttonIndex) => {
-    if (buttonIndex === 0) {
-      autoUpdater.downloadUpdate();
-    } else { }
-  });
-});
 
-autoUpdater.on('update-not-available', () => {
-  dialog.showMessageBox({
-    title: 'No Updates',
-    message: 'Current version is up-to-date.'
-  })
-})
+// autoUpdater.on('update-available', () => {
+//   dialog.showMessageBox({
+//     type: 'info',
+//     title: 'New version found',
+//     message: 'New version found, do you want install it now?',
+//     buttons: ['Yes', 'No'],
+//   }, (buttonIndex) => {
+//     if (buttonIndex === 0) {
+//       autoUpdater.downloadUpdate();
+//     } else { }
+//   });
+// });
 
-autoUpdater.on('error', (error) => {
-  dialog.showErrorBox('Error: ', error == null ? 'unknown' : (error.stack || error).toString());
-});
+// autoUpdater.on('update-not-available', () => {
+//   dialog.showMessageBox({
+//     title: 'No Updates',
+//     message: 'Current version is up-to-date.'
+//   })
+// })
 
-autoUpdater.on('download-progress', (progressObj) => {
-  let log_message = "Download speed: " + progressObj.bytesPerSecond;
-  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
-  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-  log.info(log_message);
-})
+// autoUpdater.on('error', (error) => {
+//   dialog.showErrorBox('Error: ', error == null ? 'unknown' : (error.stack || error).toString());
+// });
 
-autoUpdater.on('update-downloaded', () => {
-  dialog.showMessageBox({
-    title: 'Install Updates',
-    message: 'Updates downloaded, application will be quit for update...',
-  }, () => {
-    setImmediate(() => autoUpdater.quitAndInstall())
-  })
-}) */
+// autoUpdater.on('download-progress', (progressObj) => {
+//   let log_message = "Download speed: " + progressObj.bytesPerSecond;
+//   log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+//   log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+//   log.info(log_message);
+// })
+
+// autoUpdater.on('update-downloaded', () => {
+//   dialog.showMessageBox({
+//     title: 'Install Updates',
+//     message: 'Updates downloaded, application will be quit for update...',
+//   }, () => {
+//     setImmediate(() => autoUpdater.quitAndInstall())
+//   })
+// })
