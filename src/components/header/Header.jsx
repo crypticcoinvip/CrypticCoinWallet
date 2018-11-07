@@ -126,14 +126,7 @@ class Header extends React.Component {
         /> */}
         <div className="row">
           <div className="col s1 offset-s1 text-center" style={{ left: '-40px' }}>
-            <div
-              style={{
-                display: 'inline-block',
-                margin: '0 auto',
-                paddingTop: '10px',
-                verticalAlign: 'middle',
-              }}
-            >
+            <div id="logo">
               <img
                 className="logo center-block"
                 style={{
@@ -157,13 +150,7 @@ class Header extends React.Component {
               //   : this.toggleUnlock()
               }
             }
-            className="col s1"
-            style={{
-              textAlign: 'center',
-              display: 'block',
-              margin: 'auto',
-            }}
-          >
+            className="col s1 header-icon">
             <span
               style={{
                 paddingTop: '10px',
@@ -179,13 +166,7 @@ class Header extends React.Component {
                 <Lock style={{ fill: '#262626' }} />
               )} */}
             </span>
-            <div
-              style={{
-                fontSize: '8px',
-                paddingBottom: '10px',
-                color: '#262626',
-              }}
-            >
+            <div className="header-icon-text hide-on-med-and-down">
               {this.isUnlocked()
                 ? T.translate('header.unlocked')
                 : T.translate('header.locked')}
@@ -195,13 +176,7 @@ class Header extends React.Component {
           </div>}
 
           <div
-            className="col s1"
-            style={{
-              textAlign: 'center',
-              display: 'block',
-              margin: 'auto',
-            }}
-          >
+            className="col s1 header-icon">
             <span
               style={{
                 paddingTop: '10px',
@@ -211,24 +186,12 @@ class Header extends React.Component {
             >
               {!this.isSynced() || this.getConnectionInfo() <= 0 ? <LoadingIcon /> : <Check />}
             </span>
-            <div
-              style={{
-                fontSize: '8px',
-                paddingBottom: '10px',
-                color: '#262626',
-              }}
-            >
+            <div className="header-icon-text hide-on-med-and-down">
               {this.getBlockSyncInfo()}
             </div>
           </div>
           <div
-            className="col s1"
-            style={{
-              textAlign: 'center',
-              display: 'block',
-              margin: 'auto',
-            }}
-          >
+            className="col s1 header-icon">
             <div
               style={{
                 paddingTop: '10px',
@@ -242,13 +205,7 @@ class Header extends React.Component {
                   <WifiIcon style={{ fill: '#262626' }} />
                 )}
             </div>
-            <div
-              style={{
-                fontSize: '8px',
-                paddingBottom: '10px',
-                color: '#262626',
-              }}
-            >
+            <div className="header-icon-text hide-on-med-and-down">
               {this.getConnectionInfo()} {T.translate('header.connection')}
             </div>
           </div>

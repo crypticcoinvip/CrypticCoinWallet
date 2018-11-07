@@ -43,7 +43,7 @@ class SettingsTab extends React.Component {
   render() {
     return (
       <div id="settings" className="col s12">
-        <Collapsible style={{ overflow: 'overlay', maxHeight: '635px' }}>
+        <Collapsible style={{ overflow: 'overlay', maxHeight: 'calc(100vh - 132px)' }}>
           <li className="active">
             <div className="collapsible-header active">
               <Backup style={{ fill: '#262626', marginRight: '24px' }} />

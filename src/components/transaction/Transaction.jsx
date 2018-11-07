@@ -222,10 +222,9 @@ class Transaction extends React.Component {
             </TransactionDetailsHeader>
             <TransactionDetailsMoney className="row">
               CRYP {crypFormatter.format(Math.abs(amount + fee))}{' '}
-              {category.includes('receive') ? '+' : '-'}
             </TransactionDetailsMoney>
             <TransactionDetailsFooter className="row">
-              {category.includes('receive') ? 'to' : 'from'} {address}
+              {(category.includes('receive') || category.includes('send')) ? 'to' : 'from'} {address || 'private'}
             </TransactionDetailsFooter>
             <div className="row">
               <TransactionDetailProp className="col s6">

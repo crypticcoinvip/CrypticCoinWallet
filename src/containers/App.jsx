@@ -105,15 +105,15 @@ class App extends React.Component {
                 </Ul>
                 <div className="container">
                   <div className="row">
-                    <div className="col s2">
+                    <div className="col s2 hide-on-med-and-down">
                       <AccountBarLeft />
                     </div>
-                    <div className="col s8">
+                    <div className="col s12 m12 l8">
                       <TransactionList />
                       <AddressList />
                       <SettingsTab />
                     </div>
-                    <div className="col s2">
+                    <div className="col s2 hide-on-med-and-down">
                       <AccountBarRight />
                     </div>
                   </div>

@@ -1,3 +1,7 @@
+body {
+    overflow: hidden;
+}
+
 .logo {
     content: url('../images/logo.png');
 }
@@ -103,8 +107,48 @@ input[value]:not([value=""]) + svg {
     max-width: 900px;
 }
 
-#account, #addresses, #settings {
-    padding: 0;
+@media only screen and (min-width: 992px) {
+    #account, #addresses, #settings {
+        padding: 0;
+    }
+}
+
+#logo {
+    display: inline-block;
+    margin: 10px auto;
+    padding-top: 0;
+    vertical-align: middle;
+}
+
+@media only screen and (min-width: 992px) {
+    #logo {
+        margin: 0 auto;
+        padding-top: 12px;
+    }
+}
+
+.header-icon-text {
+    font-size: 8px;
+    padding-bottom: 10px;
+    color: #262626;
+}
+
+@media only screen and (min-width: 992px) {
+    .header-icon-text {
+        padding-bottom: 10px;
+    }
+}
+
+.header-icon {
+    text-align: center;
+    display: block;
+    margin: 8px auto;
+}
+
+@media only screen and (min-width: 992px) {
+    .header-icon {
+        margin: auto;
+    }
 }
 
 #ajax-loading-screen {

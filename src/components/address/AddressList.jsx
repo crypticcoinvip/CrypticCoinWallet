@@ -39,7 +39,7 @@ class AddressList extends Component {
         <div className="container">
           <div className="container">
             <div className="row">
-              <AddressTitle className="col s6">
+              <AddressTitle className="col m6 hide-on-small-only">
                 <List
                   style={{ fill: '#232323', marginRight: '10px' }}
                 />{' '}
@@ -49,14 +49,14 @@ class AddressList extends Component {
                   <LoadingIcon style={{ fill: '#232323', marginLeft: '12px' }}/>
                 }
               </AddressTitle>
-              <div className="col s6">
+              <div className="col s12 m6">
                 <SearchBar />
               </div>
             </div>
           </div>
           {this.props.AddressStore.loaded ? (
             <div>
-              <Collapsible style={{ overflow: 'overlay', maxHeight: '586px' }}>
+              <Collapsible style={{ overflow: 'overlay', maxHeight: 'calc(100vh - 177px)' }}>
                 {this.props.AddressStore.lastAddress.map(
                   address => (
                     <Address {...address} key={`${address.address}`} />

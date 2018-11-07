@@ -81,14 +81,14 @@ class Address extends React.Component {
               padding: '0 1.75rem 0 0.75rem'
             }}
           >
-            <div>
+            <div className="hide-on-small-only">
               <span
                 style={{
                   fontSize: '20px',
                   fontWeight: 400,
                 }}
               >
-                {address.length > 38 ? address.substr(0, 35) + '...' : address}
+                {address.length > 32 ? address.substr(0, 29) + '...' : address}
               </span>
             </div>
             <TextContainer>

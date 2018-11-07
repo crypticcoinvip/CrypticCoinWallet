@@ -11,9 +11,9 @@ import CCCacheStore from '../stores/CCCacheStore';
 
 const AccountBarRightContainer = styledComponents.div`
   text-align: center;
-  height: calc(768px - 134px);
+  height: calc(100vh - 110px);
   display: grid;
-  grid-template-rows: 262px 131px 131px 131px;
+  grid-template-rows: 40% 20% 20% 20%;
   align-items: center;
 `;
 
