@@ -159,15 +159,15 @@ function createWindow() {
       try {
         if (process.platform === 'win32') {
           runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
-          const appName = 'tor.exe'
-          exec(`taskkill /im ${appName} /t`, (err, stdout, stderr) => {
-            if (err) {
-              throw err
-            }
+          // const appName = 'tor.exe'
+          // exec(`taskkill /im ${appName} /t`, (err, stdout, stderr) => {
+          //   if (err) {
+          //     throw err
+          //   }
 
-            console.log('stdout', stdout)
-            console.log('stderr', stderr)
-          })
+          //   console.log('stdout', stdout)
+          //   console.log('stderr', stderr)
+          // })
 
           break
         } else {
