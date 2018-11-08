@@ -7,7 +7,7 @@ import torRequest from 'tor-request';
 import CCCacheStore from './CCCacheStore';
 import SettingsStore from './SettingsStore';
 
-torRequest.setTorAddress('localhost', 9089);
+torRequest.setTorAddress('localhost', 35089);
 
 export class CoinStatsStore {
   loadingFinished = false;
