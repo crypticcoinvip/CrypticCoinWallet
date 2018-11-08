@@ -29,7 +29,7 @@ class ReindexModal extends React.Component {
 
     let paths = []
     if (process.platform === 'win32') {
-      paths = ['%AppData%/Crypticcoin/blocks/**', '%AppData%/Crypticcoin/chainstate/**']
+      paths = [`${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\blocks`, `${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\chainstate`]
     } else if (process.platform === 'linux') {
       paths = [`${process.env.HOME}/.crypticcoin/blocks`, `${process.env.HOME}/.crypticcoin/chainstate`]
     } else if (process.platform === 'darwin') {
