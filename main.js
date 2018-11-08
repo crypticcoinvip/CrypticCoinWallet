@@ -74,20 +74,35 @@ const createProc = (processPath) => {
   })
 }
 
-const runCli = (processPath, cmd) => {
-  let cli = childProcess.spawn(
-    processPath,
-    [
-      `-rpcuser=${auth.user}`,
-      `-rpcpassword=${auth.pass}`,
-      `${cmd}`,
-    ],
-    {
-      stdio: ['inherit', 'pipe', 'inherit'],
-      detached: false,
-    },
-  )
-  cli.unref()
+const runCli = (processPath, cmd, sync) => {
+  if (sync === true) {
+    childProcess.spawnSync(
+      processPath,
+      [
+        `-rpcuser=${auth.user}`,
+        `-rpcpassword=${auth.pass}`,
+        `${cmd}`,
+      ],
+      {
+        stdio: ['inherit', 'pipe', 'inherit'],
+        detached: false,
+      },
+    )
+  } else {
+    let cli = childProcess.spawn(
+      processPath,
+      [
+        `-rpcuser=${auth.user}`,
+        `-rpcpassword=${auth.pass}`,
+        `${cmd}`,
+      ],
+      {
+        stdio: ['inherit', 'pipe', 'inherit'],
+        detached: false,
+      },
+    )
+    cli.unref()
+  }
 }
 
 if (process.env.NODE_ENV !== 'dev') {
@@ -143,8 +158,7 @@ function createWindow() {
     while (ccProcess && !ccProcess.killed) {
       try {
         if (process.platform === 'win32') {
-          //process.kill(ccProcess.pid, 'SIGKILL')
-          runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop')
+          runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
           const appName = 'tor.exe'
           exec(`taskkill /im ${appName} /t`, (err, stdout, stderr) => {
             if (err) {
