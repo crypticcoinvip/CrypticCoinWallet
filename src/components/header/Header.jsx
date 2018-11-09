@@ -79,6 +79,8 @@ class Header extends React.Component {
 
     if (syncInfo > 100)
       syncInfo = 100
+    else if (syncInfo < 0)
+      syncInfo = 0
 
     return this.props.AccountInformationStore.info &&
       this.props.AccountInformationStore.info.blocks
@@ -101,6 +103,8 @@ class Header extends React.Component {
 
     if (syncInfo > 100)
       syncInfo = 100
+    else if (syncInfo < 0)
+      syncInfo = 0
 
     return syncInfo === 100
   }
