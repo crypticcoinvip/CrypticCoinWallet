@@ -7,6 +7,7 @@ const childProcess = require('child_process')
 // const { autoUpdater } = require('electron-updater')
 const log = require('electron-log')
 const { exec } = require('child_process')
+const fs = require('fs-extra')
 
 require('electron-context-menu')({
   showInspectElement: false,
@@ -65,11 +66,13 @@ const createProc = (processPath) => {
     while ((chunk = readable.read()) !== null) {
       const loadRegex = /\d+/
       const chunkString = chunk.toString()
-      if (chunkString.includes('Loading block index')) {
-        const [number] = chunkString.match(loadRegex)
-        auth.loadingProgress = number
-      }
-      log.log('loading progress: ', auth.loadingProgress, '%')
+      try {
+        if (chunkString.includes('Loading block index')) {
+          const [number] = chunkString.match(loadRegex)
+          auth.loadingProgress = number
+        }
+        log.log('loading progress: ', auth.loadingProgress, '%')
+      } catch (e) { }
     }
   })
 }
@@ -182,6 +185,58 @@ function createWindow() {
     mainWindow = null
   })
 }
+
+function isFinished(win, mac, linux) {
+  return new Promise(function (resolve, reject) {
+    const plat = process.platform
+    const cmd = plat == 'win32' ? 'tasklist' : (plat == 'darwin' ? 'ps -ax | grep ' + mac : (plat == 'linux' ? 'ps -A' : ''))
+    const proc = plat == 'win32' ? win : (plat == 'darwin' ? mac : (plat == 'linux' ? linux : ''))
+    if (cmd === '' || proc === '') {
+      resolve(false)
+    }
+    exec(cmd, (err, stdout, stderr) => {
+      if (stdout.toLowerCase().indexOf(proc.toLowerCase()) === -1)
+        resolve()
+      else 
+        return isFinished(win, mac, linux).then(() => resolve())
+    })
+  })
+}
+
+ipcMain.on('request-reindex', (event, arg) => {
+  while (ccProcess && !ccProcess.killed) {
+    try {
+      if (process.platform === 'win32') {
+        runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
+        break
+      } else {
+        process.kill(-(ccProcess.pid + 1), 'SIGINT')
+      }
+    } catch (e) {
+      break
+    }
+  }
+
+  isFinished('crypticcoind.exe', 'crypticcoind', 'crypticcoind').then(() => {
+    return isFinished('crypticcoin-cli.exe', 'crypticcoin-cli', 'crypticcoin-cli')
+  }).then(() => {
+
+    let paths = []
+    if (process.platform === 'win32') {
+      paths = [`${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\blocks`, `${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\chainstate`]
+    } else if (process.platform === 'linux') {
+      paths = [`${process.env.HOME}/.crypticcoin/blocks`, `${process.env.HOME}/.crypticcoin/chainstate`]
+    } else if (process.platform === 'darwin') {
+      paths = [`${process.env.HOME}/Library/Application\ Support/CrypticCoin/blocks`, `${process.env.HOME}/Library/Application\ Support/CrypticCoin/chainstate`]
+    }
+
+    for (let k in paths) {
+      fs.removeSync(paths[k])
+    }
+
+    mainWindow.close()
+  })
+})
 
 function createLoadingWindow() {
   loadingWindow = new BrowserWindow({
