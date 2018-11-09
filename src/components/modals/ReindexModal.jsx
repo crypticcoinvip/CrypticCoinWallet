@@ -3,8 +3,7 @@ import Repeat from 'react-material-icon-svg/dist/RepeatIcon'
 import { observer, inject } from 'mobx-react'
 import i18nReact from 'i18n-react'
 import styledComponents from 'styled-components'
-import { app, remote } from 'electron'
-import fs from 'fs-extra'
+import { app, remote, ipcRenderer } from 'electron'
 
 import Modal from '../Modal'
 import { resolve } from 'dns'
@@ -24,24 +23,9 @@ class ReindexModal extends React.Component {
   }
 
   reindex() {
-
     this.setState({ isReindexing: true })
 
-    let paths = []
-    if (process.platform === 'win32') {
-      paths = [`${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\blocks`, `${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\chainstate`]
-    } else if (process.platform === 'linux') {
-      paths = [`${process.env.HOME}/.crypticcoin/blocks`, `${process.env.HOME}/.crypticcoin/chainstate`]
-    } else if (process.platform === 'darwin') {
-      paths = [`${process.env.HOME}/Library/Application\ Support/CrypticCoin/blocks`, `${process.env.HOME}/Library/Application\ Support/CrypticCoin/chainstate`]
-    }
-
-    for (let k in paths) {
-      fs.removeSync(paths[k])
-    }
-
-    remote.getCurrentWindow().close()
-
+    ipcRenderer.send('request-reindex', {});
   }
 
   render() {
