@@ -189,7 +189,7 @@ function createWindow() {
 function isFinished(win, mac, linux) {
   return new Promise(function (resolve, reject) {
     const plat = process.platform
-    const cmd = plat == 'win32' ? 'tasklist' : (plat == 'darwin' ? 'ps -ax | grep ' + mac : (plat == 'linux' ? 'ps -A' : ''))
+    const cmd = plat == 'win32' ? 'tasklist' : (plat == 'darwin' ? 'ps -ax | grep ' + mac : (plat == 'linux' ? 'ps -A | grep ' + linux : ''))
     const proc = plat == 'win32' ? win : (plat == 'darwin' ? mac : (plat == 'linux' ? linux : ''))
     if (cmd === '' || proc === '') {
       resolve(false)
