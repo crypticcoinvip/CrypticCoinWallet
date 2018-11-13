@@ -187,18 +187,26 @@ function createWindow() {
 }
 
 function isFinished(win, mac, linux) {
-  return new Promise(function (resolve, reject) {
+  let tries = 50
+  return new Promise(function cb(resolve, reject) {
     const plat = process.platform
-    const cmd = plat == 'win32' ? 'tasklist' : (plat == 'darwin' ? 'ps -ax | grep ' + mac : (plat == 'linux' ? 'ps -A | grep ' + linux : ''))
+    const cmd = plat == 'win32' ? 'tasklist' : (plat == 'darwin' ? 'ps -ax | grep ' + mac : (plat == 'linux' ? 'ps -A' : ''))
     const proc = plat == 'win32' ? win : (plat == 'darwin' ? mac : (plat == 'linux' ? linux : ''))
     if (cmd === '' || proc === '') {
-      resolve(false)
+      resolve(true)
     }
     exec(cmd, (err, stdout, stderr) => {
-      if (stdout.toLowerCase().indexOf(proc.toLowerCase()) === -1)
-        resolve()
-      else 
-        return isFinished(win, mac, linux).then(() => resolve())
+      if (stdout.toLowerCase().indexOf(proc.toLowerCase()) === -1) {
+        resolve(true)
+      } else {
+        if (--tries > 0) {
+          setTimeout(function () {
+            cb(resolve, reject);
+          }, 500);
+        } else {
+          resolve(false)
+        }
+      }
     })
   })
 }
