@@ -21,7 +21,7 @@
   },
   "reindex_modal": {
     "title": "Reindex blockchain",
-    "subtitle": "Click Reindex to renew blockchain state. Restart app once it will be closed. This will not affect to your wallet data and keys.",
+    "subtitle": "Click Reindex to renew blockchain state. This may take a while. Restart app once it will be closed. This will not affect your wallet data and keys.",
     "reindex": "Reindex"
   },
   "debug": {
@@ -84,8 +84,8 @@
       "more": "Further information:",
       "opentransaction": "Open Transaction",
       "openblock": "Open Block",
-      "opentransactionsec": "Open Transaction (secure link)",
-      "openblocksec": "Open Block (secure link)"
+      "opentransactionsec": "Open Transaction (tor link)",
+      "openblocksec": "Open Block (tor link)"
     }
   },
   "settings": {
@@ -117,7 +117,7 @@
     "reindex": {
       "name": "Reindex blockchain",
       "shield": "Reindex",
-      "explain": "Click to reindex blockchain. Restart app once it will be closed. This will not affect to your wallet data and keys."
+      "explain": "Click to reindex the blockchain. Restart the wallet after it closes automatically. This will not affect your wallet data. If you have trouble connecting, reindexing might help. However, first try restarting your computer."
     },
     "shieldto": {
       "name": "Shield to address",
