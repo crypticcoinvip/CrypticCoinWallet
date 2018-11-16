@@ -13,6 +13,54 @@ const locales = [
   {
     currency: 'USD',
     locale: 'en-US',
+  },
+  {
+    currency: 'AUD',
+    locale: 'en-AU',
+  },
+  {
+    currency: 'CAD',
+    locale: 'en-CA',
+  },
+  {
+    currency: 'CZK',
+    locale: 'cs-CZ',
+  },
+  {
+    currency: 'GBP',
+    locale: 'en-GB',
+  },
+  {
+    currency: 'HKD',
+    locale: 'zh-HK',
+  },
+  {
+    currency: 'JPY',
+    locale: 'ja-JP',
+  },
+  {
+    currency: 'NZD',
+    locale: 'en-NZ',
+  },
+  {
+    currency: 'PHP',
+    locale: 'fil-PH',
+  },
+  {
+    currency: 'RUB',
+    locale: 'ru-RU',
+  },
+  {
+    currency: 'THB',
+    locale: 'th-TH',
+  },
+  {
+    currency: 'TWD',
+    locale: 'zh-TW',
+  },
+  {
+    currency: 'KRW',
+    locale: 'ko-KR',
   }
 ]
 
