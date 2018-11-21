@@ -35,6 +35,10 @@ class Header extends React.Component {
     })
   }
 
+  toggleInfo() {
+    $(`#aboutModal`).modal('open')
+  }
+
   toggleUnlock() {
     if (this.props.AccountInformationStore.unlocked === true && this.props.AccountInformationStore.encrypted === false) {
       $(`#lockModal`).modal('open')
@@ -202,6 +206,7 @@ class Header extends React.Component {
                 display: 'block',
                 margin: 'auto',
               }}
+              onClick={this.toggleInfo}
             >
               {this.getConnectionInfo() <= 0 ? (
                 <WifiOffIcon style={{ fill: '#262626' }} />
