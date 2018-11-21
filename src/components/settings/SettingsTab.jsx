@@ -12,6 +12,7 @@ import Backup from 'react-material-icon-svg/dist/BackupRestoreIcon'
 import CurrencySetting from './settingItems/CurrencySetting'
 import Keymap from './keymaps/Keymap'
 import RegionSetting from './settingItems/RegionSetting'
+import AboutSetting from './settingItems/AboutSetting'
 import ShieldCoinbase from './blockchain/ShieldCoinbase'
 import Reindex from './blockchain/Reindex'
 import ShieldTo from './blockchain/ShieldTo'
@@ -96,6 +97,7 @@ class SettingsTab extends React.Component {
             <div className="collapsible-body">
               <div className="container">
                 <div className="row">
+                  <AboutSetting />
                   <CurrencySetting />
                   <RegionSetting />
                 </div>

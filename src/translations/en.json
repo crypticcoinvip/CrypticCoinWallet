@@ -24,6 +24,10 @@
     "subtitle": "Click Reindex to renew blockchain state. This may take a while. Restart app once it will be closed. This will not affect your wallet data and keys.",
     "reindex": "Reindex"
   },
+  "about_modal": {
+    "title": "About",
+    "subtitle": ""
+  },
   "debug": {
     "types": {
       "General": "General",
@@ -89,7 +93,7 @@
     }
   },
   "settings": {
-    "title": "View Settings",
+    "title": "Wallet Settings",
     "explaination": "Explaination",
     "keymap": "Keymap Overview",
     "usage": "Usage",
@@ -113,6 +117,10 @@
       "name": "Shield coinbase",
       "shield": "Shield",
       "explain": "Click to convert mined CRYP from transparent to private."
+    },
+    "about": {
+      "name": "About",
+      "button": "About"
     },
     "reindex": {
       "name": "Reindex blockchain",
