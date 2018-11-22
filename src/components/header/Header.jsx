@@ -209,9 +209,9 @@ class Header extends React.Component {
               onClick={this.toggleInfo}
             >
               {this.getConnectionInfo() <= 0 ? (
-                <WifiOffIcon style={{ fill: '#262626' }} />
+                <WifiOffIcon style={{ fill: '#262626', cursor: 'pointer' }} />
               ) : (
-                  <WifiIcon style={{ fill: '#262626' }} />
+                  <WifiIcon style={{ fill: '#262626', cursor: 'pointer' }} />
                 )}
             </div>
             <div className="header-icon-text hide-on-med-and-down">
