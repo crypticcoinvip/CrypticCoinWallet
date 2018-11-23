@@ -34,6 +34,7 @@ Step 4
 
 Step 5
 - copy crypticcoind to usr/lib/crypticcoin-wallet/resources
+- copy crypticcoin-cli to usr/lib/crypticcoin-wallet/resources
 
 Step 6
 - cd .. && dpkg-deb --build ubuntu-build
