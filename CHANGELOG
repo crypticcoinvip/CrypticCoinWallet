@@ -1,0 +1,11 @@
+1.2.4
+- Added additional currencies AUD/CAD/CZK/GBP/HKD/JPY/NZD/PHP/RUB/THB/TWD/KRW
+
+1.2.3
+- Fixed Reindex on Windows on OS X
+
+1.2.1
+- Fixed Reindex on Windows
+
+1.2.0
+- Added Reindex feature
