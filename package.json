@@ -1,6 +1,6 @@
 {
   "name": "crypticcoin-wallet",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "CrypticCoin Wallet.",
   "author": "CrypticCoin Currency Team",
   "build": {
