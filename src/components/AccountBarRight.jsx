@@ -77,7 +77,8 @@ class AccountBarRight extends React.Component {
       {
         style: 'currency',
         currency: CCCacheStore.get('currency', 'USD'),
-        minimumFractionDigits: 5,
+        minimumFractionDigits: 4,
+        maximumFractionDigits: CCCacheStore.get('currency', 'USD') === 'BTC' ? 8 : 4,
       },
     );
 

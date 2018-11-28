@@ -15,6 +15,10 @@ const locales = [
     locale: 'en-US',
   },
   {
+    currency: 'BTC',
+    locale: 'en-US',
+  },
+  {
     currency: 'AUD',
     locale: 'en-AU',
   },
