@@ -1,0 +1,17 @@
+1.2.4
+- Added additional currencies AUD/CAD/CZK/GBP/HKD/JPY/NZD/PHP/RUB/THB/TWD/KRW
+- Added About - can be opened by connections icon click or from Settings
+- About modal shows version and network state
+
+1.2.3
+- Fixed Reindex on OS X
+
+1.2.1
+- Fixed Reindex on Windows
+
+1.2.0
+- Added Reindex feature
+- Fixed stats feature
+- Responsive layout added - the UI looks fine in minimized window
+- Tor blockexplorer links added 
+- QR code shows for existing address
