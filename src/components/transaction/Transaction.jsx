@@ -6,6 +6,8 @@ import { inject, observer } from 'mobx-react'
 import { fadeIn } from 'react-animations'
 import ArrowDown from 'react-material-icon-svg/dist/ArrowDownIcon'
 import ArrowUp from 'react-material-icon-svg/dist/ArrowUpIcon'
+import FlashOn from 'react-material-icon-svg/dist/FlashOutlineIcon'
+import FlashCircle from 'react-material-icon-svg/dist/FlashCircleIcon'
 import CheckCircle from 'react-material-icon-svg/dist/CheckCircleOutlineIcon'
 import AccessTime from 'react-material-icon-svg/dist/TimerIcon'
 import Info from 'react-material-icon-svg/dist/InformationOutlineIcon'
@@ -24,7 +26,7 @@ const TransactionIcon = styled.default.div`
   border-radius: 52%;
   height: 32px;
   width: 32px;
-  background-color: ${(props) => (!props.up ? '#00917a' : 'rgb(222,222,222)')};
+  background-color: ${(props) => (props.bgColor ? props.bgColor : (!props.up ? '#00917a' : 'rgb(222,222,222)'))};
   .arrow-down,
   .arrow-up {
     stroke-width: 3px;
@@ -119,6 +121,8 @@ class Transaction extends React.Component {
       txid = '',
       hide = false,
       blockhash = '',
+      dpos_instant = false,
+      dpos_status = '',
       TransactionStore,
     } = this.props
 
@@ -176,8 +180,16 @@ class Transaction extends React.Component {
               </TransactionIcon>
             )}
           </CenterDiv>
+          <CenterDiv className="col s1">
+            {
+              dpos_instant ?
+              <TransactionIcon {...{ up: dpos_status === 'commited' ? 'rgb(222,222,222)' : 'orange' }}>
+                  <FlashOn width={18} height={18} />
+              </TransactionIcon> : ''
+            }
+          </CenterDiv>
           <div
-            className={'col s9'}
+            className={'col s8'}
             style={{
               fontWeight: 'bold',
               color: category.includes('send') ? '#dc2b3d' : '#00917a',
@@ -210,6 +222,7 @@ class Transaction extends React.Component {
                 }}
               >
                 {this.getType(amount, category, fee)}
+                {dpos_instant ? ' InstantTX' : ''}
               </span>
             </TextContainer>
           </div>
@@ -227,7 +240,7 @@ class Transaction extends React.Component {
               {(category.includes('receive') || category.includes('send')) ? 'to' : 'from'} {address || 'private'}
             </TransactionDetailsFooter>
             <div className="row">
-              <TransactionDetailProp className="col s6">
+              <TransactionDetailProp className="col s12 m6">
                 <CheckCircle
                   height={15}
                   width={15}
@@ -239,7 +252,7 @@ class Transaction extends React.Component {
                     )}`
                   : T.default.translate('transaction.item.outofsync')}
               </TransactionDetailProp>
-              <TransactionDetailProp className="col s6">
+              <TransactionDetailProp className="col s12 m6">
                 <AccessTime
                   height={15}
                   width={15}
@@ -249,6 +262,14 @@ class Transaction extends React.Component {
                   }}
                 />{' '}
                 {moment.unix(time).format('MMMM Do YYYY, h:mm:ss a')}
+              </TransactionDetailProp>
+              <TransactionDetailProp className="col s12 m6" style={{ display: dpos_instant ? 'inline-flex' : 'none' }}>
+                {dpos_instant ? <FlashCircle
+                  height={15}
+                  width={15}
+                  style={{ fill: 'rgba(100,100,100, 0.5)', marginRight: '7px' }}
+                /> : ''}
+                {dpos_instant ? T.default.translate(`transaction.item.${dpos_status}`) : ''}
               </TransactionDetailProp>
             </div>
             <div className="row">

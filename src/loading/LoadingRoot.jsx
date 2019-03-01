@@ -18,11 +18,12 @@ class LoadingRoot extends React.Component {
           className="logo-svg center-block"
           style={{
             height: 'auto',
-            width: '512px',
+            width: '494px',
           }}
         />
         <div className="row" style={{ background: '#ffc600', color: 'black', padding: '10px' }}>
           <div>Official <strong>CrypticCoin Wallet</strong></div>
+          <div>With <strong>InstantTX</strong> by <strong>Infinity Nodes</strong></div>
           <div>version {this.props.SettingsStore.appVersion}</div>
         </div>
       </div>

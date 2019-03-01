@@ -58,18 +58,37 @@ const SendState = {
 }
 
 class SendModal extends React.Component {
-  state = {
-    amount: 0,
-    address: this.props.address || '',
-    from: this.props.from || '',
-    label: '',
-    status: SendState.OPEN,
-    error: null,
-    password: '',
-    isPassword: false,
-    warningAddressTo: false,
-    warningAddressFrom: false,
-    warningAmount: false,
+  constructor(props) {
+    super(props)
+    this.state = {
+      amount: 0,
+      address: this.props.address || '',
+      from: this.props.from || '',
+      label: '',
+      status: SendState.OPEN,
+      error: null,
+      password: '',
+      isPassword: false,
+      warningAddressTo: false,
+      warningAddressFrom: false,
+      warningAmount: false,
+      instantTx: false,
+      isInstantTxAvailable: false,
+      fee: 0,
+    }
+    this.getDPosAvailable()
+  }
+
+  componentDidUpdate() {
+    
+  }
+
+  getDPosAvailable() {
+    return this.props.AccountInformationStore.getMiningInfo().then((info) => {
+      const dpos = !!info.dpos
+      this.setState({ isInstantTxAvailable: dpos, instantTx: dpos && this.state.instantTx })
+      return dpos
+    })
   }
 
   getLocaleId() {
@@ -80,13 +99,31 @@ class SendModal extends React.Component {
     return this.props.AccountInformationStore.getBalance
   }
 
+  getFee() {
+    this.props.AccountInformationStore.getFee().then((fees) => {
+      const fee = this.state.instantTx ? fees[1] : fees[0]
+      this.setState({ fee })
+    })
+  }
+
   getPrice() {
     return this.props.CoinStatsStore.priceWithCurrency
   }
 
+  toggleTx() {
+    this.setState({
+      instantTx: !this.state.instantTx,
+    })
+    this.props.SettingsStore.setSettingOption({
+      key: 'instantTx',
+      value: !this.state.instantTx,
+    })
+    this.getFee()
+  }  
+
   sendTransaction() {
     const {
-      address, amount, isPassword, password, warningAddressTo, warningAddressFrom, warningAmount,
+      address, amount, isPassword, password, warningAddressTo, warningAddressFrom, warningAmount, instantTx, fee
     } = this.state
 
     const from = this.props.AddressStore.lastSend
@@ -132,14 +169,24 @@ class SendModal extends React.Component {
 
     if (data !== hash) return;
 
+    if (address && from) { 
+      const prefixTo = address.substr(0, 2)
+      const prefixFrom = from.substr(0, 2)
+      if ((prefixTo === 'cc' && prefixFrom === 'cs') || (prefixTo === 'cs' && prefixFrom === 'cc')) {
+        Materialize.toast(`${i18nReact.translate('sendPanel.cccsWarning')}`, 5000); 
+      }
+    }  
+
     this.setState({ status: SendState.SENDING, error: null });
 
-    if (address.substr(0, 2) === 'zc' || from) { Materialize.toast(`${i18nReact.translate('asyncOperations.send')} ${i18nReact.translate('asyncOperations.started')}`, 3000); }
+    if (address.substr(0, 2) === 'cc' || from) { 
+      Materialize.toast(`${i18nReact.translate('asyncOperations.send')} ${i18nReact.translate('asyncOperations.started')}`, 3000); 
+    }  
 
     setTimeout(() => {
-      AccountInformationStore.sendTransaction(address, amount, from)
+      AccountInformationStore.sendTransaction(address, amount, from, fee, instantTx)
         .then((result) => {
-          if (address.substr(0, 2) === 'zc' || from) {
+          if (address.substr(0, 2) === 'cc' || from) {
             const opId = result;
             const interval = setInterval(() => {
               AccountInformationStore.getOperationStatus([opId])
@@ -164,6 +211,8 @@ class SendModal extends React.Component {
                         status: SendState.OPEN,
                       });
                     }, 1000);
+                  } else if (status === 'failed') {
+                    Materialize.toast(`${statuses[0].error.message}`, 4000);
                   }
                 });
             }, 5000);
@@ -217,7 +266,6 @@ class SendModal extends React.Component {
                   {i18nReact.translate('sendPanel.recipient')}
                 </Info>
                 <Input
-                  // style={{ borderColor: "red", borderWidth: '3px' }}
                   value={this.state.address}
                   name="address"
                   id="passpharse"
@@ -250,10 +298,11 @@ class SendModal extends React.Component {
                       <Input
                         value={this.state.amount}
                         onChange={(event) => {
-                          const regex = /^[0-9.,]+$/;
-                          const amount = event.target.value;
+                          const regex = /^[0-9.,]+$/
+                          const amount = event.target.value
                           if (amount === '' || regex.test(amount)) {
-                            this.setState({ amount });
+                            this.setState({ amount })
+                            this.getDPosAvailable().then(() => this.getFee())                            
                           }
                         }}
                         placeholder={
@@ -304,6 +353,24 @@ class SendModal extends React.Component {
                     </div>
                   </div>
                 </div>
+                <div className="container" style={{ marginBottom: '20px', marginTop: '16px' }}>
+                  <div className="row">
+                    <div className="col s12">
+                      <div className="switch">
+                        <label>
+                          Standard TX
+                          <input type="checkbox"
+                                  checked={this.state.instantTx}
+                                  onChange={this.toggleTx.bind(this)}
+                                  disabled={!this.state.isInstantTxAvailable}
+                                />
+                          <span className="lever"></span>
+                          Instant TX by Infinity Nodes
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 {
                   this.state.isPassword
                   && (
@@ -326,7 +393,7 @@ class SendModal extends React.Component {
                     && `${i18nReact.translate('sendPanel.sendButton')}${' '}
                   ${
                     this.state.amount
-                      ? `${this.state.amount.toLocaleString(this.getLocaleId())} CRYP ($${(this.state.amount * this.getPrice()).toLocaleString(this.getLocaleId())}) + ${FEE.toLocaleString(this.getLocaleId())} CRYP Fee`
+                      ? `${this.state.amount.toLocaleString(this.getLocaleId())} CRYP ($${(this.state.amount * this.getPrice()).toLocaleString(this.getLocaleId())}) + ${this.state.fee} CRYP Fee`
                       : ''
                     }`}
                   {this.state.status === SendState.SENDING
@@ -341,7 +408,7 @@ class SendModal extends React.Component {
                     {i18nReact.translate('sendPanel.walletAfterTransaction')}
                     {' '}
                     <b>
-                      {(this.getBalance().total - this.state.amount - FEE).toLocaleString(this.getLocaleId())}
+                      {(this.getBalance().total - this.state.amount - this.state.fee).toLocaleString(this.getLocaleId())}
                       {' '}
                       CRYP
                     </b>

@@ -54,12 +54,16 @@ export class AccountInformationStore {
     }, 10000)
   }
 
-  sendTransaction(ccAddress, amount, from) {
-    return CCClient.sendToAddress(ccAddress, amount, from)
+  sendTransaction(ccAddress, amount, from, fee, instantTx) {
+    return CCClient.sendToAddress(ccAddress, amount, from, 1, fee, instantTx)
   }
 
   shieldCoinbase(from, zaddress) {
     return CCClient.send('z_shieldcoinbase', from, zaddress)
+  }
+
+  getMiningInfo() {
+    return CCClient.send('getmininginfo')
   }
 
   validateZAddress(zaddress) {
@@ -90,6 +94,15 @@ export class AccountInformationStore {
     return this.info
   }
 
+  getFee() {
+    let requests = []
+    requests.push(CCClient.send('estimatefee', 1))
+    requests.push(CCClient.send('instant_estimatefee'))
+    return Promise.all(requests).then((fees) => {
+      return fees
+    })
+  }
+
   get getBalance() {
     return (
       this.info.balance || {
@@ -97,6 +110,8 @@ export class AccountInformationStore {
         private: 0,
         transparent: 0,
         coinbase: 0,
+        instant_private: 0,
+        instant_transparent: 0,
       }
     )
   }
@@ -137,6 +152,7 @@ decorate(AccountInformationStore, {
   addOldInfo: action,
   getUpdatedInfo: computed,
   getBalance: computed,
+  getFee: action,
   unlocked: computed,
   encrypted: computed,
 });

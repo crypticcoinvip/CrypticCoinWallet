@@ -196,10 +196,10 @@ var Client = /** @class */ (function (_super) {
         });
     });
   };
-  Client.prototype.sendToAddress = function (address, amount, from) {
-    return (address.substr(0, 2) == 't1' && !from)
+  Client.prototype.sendToAddress = function (address, amount, from, minConf, fee, instantTx) {
+    return (address.substr(0, 2) == 'c1' && !from)
       ? this.send("sendtoaddress", address, amount)
-      : this.send("z_sendmany", from, [{ address: address, amount: amount }]);
+      : this.send("z_sendmany", from, [{ address: address, amount: amount }], minConf, fee, instantTx);
   };
   Client.prototype.walletLock = function () {
     return this.send("walletlock");

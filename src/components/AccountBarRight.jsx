@@ -5,6 +5,7 @@ import styledComponents from 'styled-components';
 
 import MoneyIn from 'react-material-icon-svg/dist/ArrowDownIcon';
 import MoneyOut from 'react-material-icon-svg/dist/ArrowUpIcon';
+import FlashOn from 'react-material-icon-svg/dist/FlashOutlineIcon'
 import SendModal from './modals/SendModal';
 import ReceiveModal from './modals/ReceiveModal';
 import CCCacheStore from '../stores/CCCacheStore';
@@ -13,7 +14,7 @@ const AccountBarRightContainer = styledComponents.div`
   text-align: center;
   height: calc(100vh - 110px);
   display: grid;
-  grid-template-rows: 40% 20% 20% 20%;
+  grid-template-rows: 49.5% 16.5% 16.5% 16.5%;
   align-items: center;
 `;
 
@@ -131,7 +132,8 @@ class AccountBarRight extends React.Component {
               }
               id="sending"
               data-position="bottom"
-              data-tooltip="To send CRYP unlock your wallet"
+              data-tooltip={this.props.AccountInformationStore.unlocked && this.props.AccountInformationStore.info.loaded ? 
+                "To send CRYP unlock your wallet" : ""}
               style={{
                 marginLeft: '12px',
                 marginRight: '32px',
@@ -164,7 +166,8 @@ class AccountBarRight extends React.Component {
                   : 'receive tooltipped btn-floating btn-large disabled'
               }
               data-position="bottom"
-              data-tooltip="To receive CRYP unlock your wallet"
+              data-tooltip={this.props.AccountInformationStore.unlocked && this.props.AccountInformationStore.info.loaded ? 
+                "To receive CRYP unlock your wallet" : ""}
               style={{
                 marginLeft: '12px',
                 marginRight: '32px',

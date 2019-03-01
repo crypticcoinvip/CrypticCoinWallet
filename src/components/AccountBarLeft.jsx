@@ -13,7 +13,7 @@ const AccountBarLeftContainer = styledComponents.div`
   text-align: center;
   height: calc(100vh - 110px);
   display: grid;
-  grid-template-rows: 20% 20% 20% 20% 20%;
+  grid-template-rows: 16.5% 16.5% 16.5% 16.5% 16.5% 16.5%;
   align-items: center;
 `
 
@@ -119,6 +119,15 @@ class AccountBarLeft extends React.Component {
           <h6 style={{ color: '#232323' }}>
             {CRYPformatter.format(
               this.props.AccountInformationStore.getBalance.total,
+            )}{' '}
+            CRYP
+          </h6>
+        </div>
+        <div>
+          <Title>{i18nReact.translate('accountbar.crypunsbalance')}</Title>
+          <h6 style={{ color: '#232323' }}>
+            {CRYPformatter.format(
+              this.props.AccountInformationStore.getBalance.instant_transparent + this.props.AccountInformationStore.getBalance.instant_private,
             )}{' '}
             CRYP
           </h6>

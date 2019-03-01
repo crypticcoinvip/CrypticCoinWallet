@@ -12,6 +12,7 @@ import TransactionList from '../components/transaction/TransactionList'
 import AddressList from '../components/address/AddressList'
 import AccountBarLeft from '../components/AccountBarLeft'
 import AccountBarRight from '../components/AccountBarRight'
+import AccountBarRightSmall from '../components/AccountBarRightSmall'
 import backgroundRing from '../assets/images/oval_header_outline@3x_dot.png'
 import UnlockModal from '../components/modals/UnlockModal'
 import LockModal from '../components/modals/LockModal'
@@ -115,6 +116,9 @@ class App extends React.Component {
                     </div>
                     <div className="col s2 hide-on-med-and-down">
                       <AccountBarRight />
+                    </div>
+                    <div className="hide-on-med-and-up show-on-small">
+                      <AccountBarRightSmall />
                     </div>
                   </div>
                 </div>

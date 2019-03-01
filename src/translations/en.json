@@ -89,7 +89,13 @@
       "opentransaction": "Open Transaction",
       "openblock": "Open Block",
       "opentransactionsec": "Open Transaction (tor link)",
-      "openblocksec": "Open Block (tor link)"
+      "openblocksec": "Open Block (tor link)",
+      "committed": "Committed", 
+      "deffered": "Deffered", 
+      "rejected": "Rejected", 
+      "voting": "Voting...", 
+      "not_voted": "Not voted", 
+      "orphan": "Orphan"
     }
   },
   "settings": {
@@ -221,7 +227,8 @@
     "addressplaceholder": "CrypticCoin T-Address or Z-Address",
     "zaddressplaceholder": "CrypticCoin T-Address or Z-Address",
     "amountplaceholder": "Enter amount",
-    "labelplaceholder": "John Doe Wallet Address"
+    "labelplaceholder": "John Doe Wallet Address",
+    "cccsWarning": "You can't send CRYP from Z-Address V1 to Z-Address V2 and vice versa. Move your CRYP to V2 Z-Address or ask recipient for Z-Adress V2"
   },
   "asyncOperations": {
     "send": "Send operation",
@@ -237,6 +244,7 @@
     "tbalance": "Transparent",
     "zbalance": "Private",
     "crypbalance": "Total balance",
+    "crypunsbalance": "Unspendable",
     "crypusd": "TOTAL IN {currency}",
     "crypprice": "CRYP PRICE"
   },

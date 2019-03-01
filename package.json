@@ -1,6 +1,6 @@
 {
   "name": "crypticcoin-wallet",
-  "version": "1.2.4",
+  "version": "2.0.0",
   "description": "CrypticCoin Wallet.",
   "author": "CrypticCoin Currency Team",
   "build": {
@@ -202,6 +202,7 @@
     "qrcode.react": "^0.8.0",
     "react": "^16.4.2",
     "react-animations": "^1.0.0",
+    "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.4.2",
     "react-highcharts": "^16.0.2",
     "react-material-icon-svg": "^1.6.1",

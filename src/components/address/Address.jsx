@@ -72,7 +72,7 @@ class Address extends React.Component {
           }}
         >
           <div
-            className={'col s8'}
+            className={'col m8 s2'}
             style={{
               fontWeight: 'bold',
               textAlign: 'left',
@@ -103,7 +103,7 @@ class Address extends React.Component {
             </TextContainer>
           </div>
           <div
-            className="col s4"
+            className="col m4 s10"
             style={{
               textAlign: 'right',
               fontWeight: 500,
