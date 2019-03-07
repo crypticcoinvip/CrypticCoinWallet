@@ -223,7 +223,7 @@ ipcMain.on('request-reindex', (event, arg) => {
       }
     } catch (e) {
       log.info(e)
-      return
+      break
     }
   }
 
@@ -259,7 +259,7 @@ ipcMain.on('request-rescan', (event, arg) => {
       }
     } catch (e) {
       log.info(e)
-      return
+      break
     }
   }
 
