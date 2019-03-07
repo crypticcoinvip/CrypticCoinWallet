@@ -44,10 +44,11 @@ global.sharedObj = auth
 
 let ccProcess
 
-const createProc = (processPath) => {
+const createProc = (processPath, params = []) => {
   ccProcess = childProcess.spawn(
     processPath,
     [
+      ...params,
       '-daemon',
       `-rpcuser=${auth.user}`,
       `-rpcpassword=${auth.pass}`,
@@ -221,7 +222,8 @@ ipcMain.on('request-reindex', (event, arg) => {
         process.kill(-(ccProcess.pid + 1), 'SIGINT')
       }
     } catch (e) {
-      break
+      log.info(e)
+      return
     }
   }
 
@@ -243,6 +245,28 @@ ipcMain.on('request-reindex', (event, arg) => {
     }
 
     mainWindow.close()
+  })
+})
+
+ipcMain.on('request-rescan', (event, arg) => {
+  while (ccProcess && !ccProcess.killed) {
+    try {
+      if (process.platform === 'win32') {
+        runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
+        break
+      } else {
+        process.kill(-(ccProcess.pid + 1), 'SIGINT')
+      }
+    } catch (e) {
+      log.info(e)
+      return
+    }
+  }
+
+  isFinished('crypticcoind.exe', 'crypticcoind', 'crypticcoind').then(() => {
+    return isFinished('crypticcoin-cli.exe', 'crypticcoin-cli', 'crypticcoin-cli')
+  }).then(() => {
+    createProc(`${process.resourcesPath}/crypticcoind`, ['-rescan'])
   })
 })
 
