@@ -97,7 +97,7 @@ export class AccountInformationStore {
   getFee() {
     let requests = []
     requests.push(CCClient.send('estimatefee', 1))
-    requests.push(CCClient.send('instant_estimatefee'))
+    requests.push(CCClient.send('i_estimatefee'))
     return Promise.all(requests).then((fees) => {
       return fees
     })
