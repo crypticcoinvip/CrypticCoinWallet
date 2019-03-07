@@ -21,8 +21,10 @@
   },
   "reindex_modal": {
     "title": "Reindex blockchain",
-    "subtitle": "Click Reindex to renew blockchain state. This may take a while. Restart app once it will be closed. This will not affect your wallet data and keys.",
-    "reindex": "Reindex"
+    "subreindex": "Click Reindex to renew blockchain state. This may take a while. Restart app once it will be closed. This will not affect your wallet data and keys.",
+    "subrescan": "Click Rescan to check wallet state. This may take a while.",
+    "reindex": "Reindex",
+    "rescan": "Rescan"
   },
   "about_modal": {
     "title": "About",
@@ -180,7 +182,9 @@
     "locked": "locked",
     "on": "ON",
     "off": "OFF",
-    "loading": "Loading ..."
+    "loading": "Loading ...",
+    "syncing": "Syncing ...",
+    "rescanning": "Rescanning ..."
   },
   "unlock": {
     "title": "Unlock your wallet",

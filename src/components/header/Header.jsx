@@ -67,6 +67,12 @@ class Header extends React.Component {
   }
 
   getBlockSyncInfo() {
+    if (this.props.AccountInformationStore.info &&
+      this.props.AccountInformationStore.info.state &&
+      this.props.AccountInformationStore.info.state != 'syncing') {
+        return T.translate(`header.${this.props.AccountInformationStore.info.state}`)
+    }
+
     if (
       this.props.AccountInformationStore.info &&
       !this.props.AccountInformationStore.info.blocks

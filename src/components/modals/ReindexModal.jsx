@@ -20,12 +20,17 @@ const Input = styledComponents.input`
 class ReindexModal extends React.Component {
   state = {
     isReindexing: false,
+    isRescanning: false,
+    isHardReindexing: false,
   }
 
   reindex() {
     this.setState({ isReindexing: true })
-
     ipcRenderer.send('request-reindex', {});
+  }
+
+  rescan() {
+    ipcRenderer.send('request-rescan', {});
   }
 
   render() {
@@ -41,7 +46,7 @@ class ReindexModal extends React.Component {
             <div className="col s9 offset-s3">
               <div className="container">
                 <div className="container" style={{ marginBottom: '20px' }}>
-                  <Info>{i18nReact.translate('reindex_modal.subtitle')}</Info>
+                  <Info>{i18nReact.translate('reindex_modal.subreindex')}</Info>
                 </div>
                 <button
                   className={!this.state.isReindexing ? "btn grey darken-3 waves-effect waves-light" : "btn grey darken-3 waves-effect waves-light disabled"}
@@ -63,6 +68,37 @@ class ReindexModal extends React.Component {
               </div>
             </div>
           </div>
+
+          <div className="row">
+            <div className="col s9 offset-s3">
+              <div className="container">
+                <div className="container" style={{ marginBottom: '20px' }}>
+                  <Info>{i18nReact.translate('reindex_modal.subrescan')}</Info>
+                </div>
+                <button
+                  className={
+                    this.props.AccountInformationStore.info.state === 'rescanning' || this.state.isRescanning 
+                    ? "btn grey darken-3 waves-effect waves-light disabled" 
+                    : "btn grey darken-3 waves-effect waves-light"
+                  }
+                  onClick={
+                    this.props.AccountInformationStore.info.state !== 'rescanning'
+                      ? () => this.rescan()
+                      : () => {}
+                  }
+                  style={{
+                    display: 'inline-flex',
+                    justifyItems: 'center',
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    justifyContent: 'center',
+                  }}                      
+                >
+                  <Repeat style={{ fill: '#fff', marginRight: '10px' }} />{i18nReact.translate('reindex_modal.rescan')}
+                </button>
+              </div>
+            </div>
+          </div>          
         </div>
       </Modal>
     )

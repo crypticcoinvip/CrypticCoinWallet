@@ -25,7 +25,7 @@ const getAccountInfo = () => CCClient.getInfo()
         encrypted: !e.includes('running with an unencrypted wallet, but walletpassphrase'),
       }));
   }))
-  .catch(electronLog.error)
+  //.catch(electronLog.error)
 
 export class AccountInformationStore {
   info = {}
@@ -39,15 +39,17 @@ export class AccountInformationStore {
             ...info,
             loadingProgress: remote.getGlobal('sharedObj').loadingProgress,
             loaded: !!info,
+            state: '',
           }
           localStorage.info = JSON.stringify(this.info)
           electronLog.log('Updated wallet information successfully.')
         })
-        .catch(() => {
+        .catch((err) => {
           this.info = {
             ...this.info,
             loadingProgress: remote.getGlobal('sharedObj').loadingProgress,
-            loaded: !!info,
+            loaded: false,
+            state: (err.toString().indexOf('Rescan') != -1 ? 'rescanning' : (err.toString().indexOf('Loading') != -1 ? 'loading' : '')),
           };
           electronLog.warn('Couldn`t fetch wallet information')
         })
