@@ -1,6 +1,7 @@
 #!/bin/bash
 mkdir -p ~/.crypticcoin-params
 cp /usr/lib/crypticcoin-wallet/resources/sprout* ~/.crypticcoin-params
+cp /usr/lib/crypticcoin-wallet/resources/sapling* ~/.crypticcoin-params
 
 chown -R $SUDO_USER:$SUDO_USER ~/.crypticcoin-params
 
