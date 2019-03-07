@@ -127,7 +127,7 @@ class AccountBarLeft extends React.Component {
           <Title>{i18nReact.translate('accountbar.crypunsbalance')}</Title>
           <h6 style={{ color: '#232323' }}>
             {CRYPformatter.format(
-              this.props.AccountInformationStore.getBalance.instant_transparent + this.props.AccountInformationStore.getBalance.instant_private,
+              (this.props.AccountInformationStore.getBalance.instant_transparent || 0) + (this.props.AccountInformationStore.getBalance.instant_private || 0)
             )}{' '}
             CRYP
           </h6>
