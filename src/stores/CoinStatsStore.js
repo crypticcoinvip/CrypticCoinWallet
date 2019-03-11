@@ -56,25 +56,49 @@ export class CoinStatsStore {
 
   getCoinStats() {
 
-    // https://api.coingecko.com/api/v3/coins/cryptic-coin
-    return new Promise((resolve, reject) => torRequest.request('https://proxy.hidemyass.com/proxy/en-ww/aHR0cHM6Ly9hcGkuY29pbmdlY2tvLmNvbS9hcGkvdjMvY29pbnMvY3J5cHRpYy1jb2lu', (err, res, body) => {
+    // // https://api.coingecko.com/api/v3/coins/cryptic-coin
+    // return new Promise((resolve, reject) => torRequest.request('https://proxy.hidemyass.com/proxy/en-ww/aHR0cHM6Ly9hcGkuY29pbmdlY2tvLmNvbS9hcGkvdjMvY29pbnMvY3J5cHRpYy1jb2lu', (err, res, body) => {
+    //     if (!err && res.statusCode === 200) {
+    //       const data = JSON.parse(body);
+    //       const currency = CCCacheStore.get('currency', 'USD');
+    //       let ticker = {};
+    //       ticker.price = Number(data['market_data']['current_price'][currency.toLowerCase()]);
+    //       ticker.volume = Number(data['market_data']['total_volume'][currency.toLowerCase()]);
+    //       ticker.price_btc = Number(data['market_data']['current_price']['btc']);
+    //       ticker.hourChange = Number(data['market_data']['price_change_percentage_1h_in_currency']['btc']);
+    //       ticker.dayChange = Number(data['market_data']['price_change_percentage_24h_in_currency']['btc']);
+    //       ticker.weekChange = Number(data['market_data']['price_change_percentage_7d_in_currency']['btc']);
+    //       return resolve(ticker);
+    //     }
+
+    //     return reject(err);
+    //   },
+    // ));
+
+    return new Promise((resolve, reject) => torRequest.request(
+      `https://api.coinmarketcap.com/v1/ticker/crypticcoin/?convert=${CCCacheStore.get(
+        'currency',
+        'USD',
+      )}`,
+      (err, res, body) => {
         if (!err && res.statusCode === 200) {
-          const data = JSON.parse(body);
+          const [resJson] = JSON.parse(body);
           const currency = CCCacheStore.get('currency', 'USD');
-          let ticker = {};
-          ticker.price = Number(data['market_data']['current_price'][currency.toLowerCase()]);
-          ticker.volume = Number(data['market_data']['total_volume'][currency.toLowerCase()]);
-          ticker.price_btc = Number(data['market_data']['current_price']['btc']);
-          ticker.hourChange = Number(data['market_data']['price_change_percentage_1h_in_currency']['btc']);
-          ticker.dayChange = Number(data['market_data']['price_change_percentage_24h_in_currency']['btc']);
-          ticker.weekChange = Number(data['market_data']['price_change_percentage_7d_in_currency']['btc']);
-          return resolve(ticker);
+          return resolve({
+            price: Number(`${resJson[`price_${currency.toLowerCase()}`]}`),
+            volume: Number(`${resJson[`24h_volume_${currency.toLowerCase()}`]}`),
+            price_btc: Number(resJson.price_btc),
+            rank: Number(resJson.rank),
+            cap: Number(resJson[`market_cap_${currency.toLowerCase()}`]),
+            hourChange: Number(resJson.percent_change_1h),
+            dayChange: Number(resJson.percent_change_24h),
+            weekChange: Number(resJson.percent_change_7d),
+          });
         }
 
         return reject(err);
       },
-    ));
-
+    ))
   }
 
   get loaded() {
