@@ -27,7 +27,7 @@ class ReindexModal extends React.Component {
   }
 
   isInService() {
-    return this.props.AccountInformationStore.info.state !== ''
+    return this.props.AccountInformationStore.info.state !== '' || !this.props.AccountInformationStore.info.loaded
   }
 
   toggle() {

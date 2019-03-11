@@ -98,6 +98,7 @@ export class AccountInformationStore {
 
   setState(state) {
     this.info.state = state
+    localStorage.info = JSON.stringify(this.info)
   }
 
   getFee() {
