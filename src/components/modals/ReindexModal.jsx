@@ -26,7 +26,7 @@ class ReindexModal extends React.Component {
   }
 
   isInService() {
-    return this.state.isReindexing && this.state.isRescanning && this.state.isHardReindexing && this.props.AccountInformationStore.info.state === ''
+    return this.state.isReindexing || this.state.isRescanning || this.state.isHardReindexing || this.props.AccountInformationStore.info.state !== ''
   }
 
   toggle() {
