@@ -187,7 +187,9 @@
     "off": "OFF",
     "loading": "Loading ...",
     "syncing": "Syncing ...",
-    "rescanning": "Rescanning ..."
+    "rescanning": "Rescanning ...",
+    "reindexing": "Reindexing ...",
+    "cleaning": "Cleaning ..."
   },
   "unlock": {
     "title": "Unlock your wallet",

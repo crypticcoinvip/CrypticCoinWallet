@@ -96,6 +96,10 @@ export class AccountInformationStore {
     return this.info
   }
 
+  setState(state) {
+    this.info.state = state
+  }
+
   getFee() {
     let requests = []
     requests.push(CCClient.send('estimatefee', 1))

@@ -19,6 +19,7 @@ const Input = styledComponents.input`
 
 class ReindexModal extends React.Component {
   state = {
+    stateUpdated: false,
     isReindexing: false,
     isRescanning: false,
     isHardReindexing: false,
@@ -26,7 +27,7 @@ class ReindexModal extends React.Component {
   }
 
   isInService() {
-    return this.state.isReindexing || this.state.isRescanning || this.state.isHardReindexing || this.props.AccountInformationStore.info.state !== ''
+    return this.props.AccountInformationStore.info.state !== ''
   }
 
   toggle() {
@@ -37,15 +38,18 @@ class ReindexModal extends React.Component {
 
   cleanAndReindex() {
     this.setState({ isHardReindexing: true })
+    this.props.AccountInformationStore.setState('cleaning')
     ipcRenderer.send('request-clean-reindex', {});
   }
 
   reindex() {
+    this.props.AccountInformationStore.setState('reindexing')
     this.setState({ isReindexing: true })
     ipcRenderer.send('request-reindex', {});
   }
 
   rescan() {
+    this.props.AccountInformationStore.setState('rescanning')
     this.setState({ isRescanning: true })
     ipcRenderer.send('request-rescan', {});
   }
