@@ -49,7 +49,6 @@ const createProc = (processPath, params = []) => {
     processPath,
     [
       ...params,
-      '-daemon',
       `-rpcuser=${auth.user}`,
       `-rpcpassword=${auth.pass}`,
       '-printtoconsole',
@@ -59,7 +58,7 @@ const createProc = (processPath, params = []) => {
       detached: true,
     },
   )
-  log.info('CrypticCoin Process running @ ', ccProcess.pid + 1, ' pid')
+  log.info('CrypticCoin Process running @ ', ccProcess.pid, ' pid')
   const readable = ccProcess.stdout
   ccProcess.unref()
   readable.on('readable', () => {
@@ -175,7 +174,7 @@ function createWindow() {
 
           break
         } else {
-          process.kill(-(ccProcess.pid + 1), 'SIGINT')
+          process.kill(-(ccProcess.pid), 'SIGINT')
         }
       } catch (e) {
         console.log(e.message)
@@ -212,14 +211,14 @@ function isFinished(win, mac, linux) {
   })
 }
 
-ipcMain.on('request-reindex', (event, arg) => {
+ipcMain.on('request-clean-reindex', (event, arg) => {
   while (ccProcess && !ccProcess.killed) {
     try {
       if (process.platform === 'win32') {
         runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
         break
       } else {
-        process.kill(-(ccProcess.pid + 1), 'SIGINT')
+        process.kill(-(ccProcess.pid), 'SIGINT')
       }
     } catch (e) {
       log.info(e)
@@ -248,6 +247,28 @@ ipcMain.on('request-reindex', (event, arg) => {
   })
 })
 
+ipcMain.on('request-reindex', (event, arg) => {
+  while (ccProcess && !ccProcess.killed) {
+    try {
+      if (process.platform === 'win32') {
+        runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
+        break
+      } else {
+        process.kill(-(ccProcess.pid), 'SIGINT')
+      }
+    } catch (e) {
+      log.info(e)
+      break
+    }
+  }
+
+  isFinished('crypticcoind.exe', 'crypticcoind', 'crypticcoind').then(() => {
+    return isFinished('crypticcoin-cli.exe', 'crypticcoin-cli', 'crypticcoin-cli')
+  }).then(() => {
+    createProc(`${process.resourcesPath}/crypticcoind`, ['-reindex'])
+  })
+})
+
 ipcMain.on('request-rescan', (event, arg) => {
   while (ccProcess && !ccProcess.killed) {
     try {
@@ -255,7 +276,7 @@ ipcMain.on('request-rescan', (event, arg) => {
         runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
         break
       } else {
-        process.kill(-(ccProcess.pid + 1), 'SIGINT')
+        process.kill(-(ccProcess.pid), 'SIGINT')
       }
     } catch (e) {
       log.info(e)

@@ -20,11 +20,14 @@
     "label": "Generate new Z-Address or paste existing one"
   },
   "reindex_modal": {
-    "title": "Reindex blockchain",
-    "subreindex": "Click Reindex to renew blockchain state. This may take a while. Restart app once it will be closed. This will not affect your wallet data and keys.",
+    "title": "Check blockchain",
+    "subreindex": "Click Reindex to renew blockchain state. This may take a while. This will not affect your wallet data and keys.",
     "subrescan": "Click Rescan to check wallet state. This may take a while.",
     "reindex": "Reindex",
-    "rescan": "Rescan"
+    "cleanreindex": "Clean & Reindex",
+    "subcleanreindex": "Click Clean & Reindex to renew blockchain state. The blockchain will be deleted and downloaded again. This may take up to few hours. Do that if Reindex not help. Restart app once it will be closed. This will not affect your wallet data and keys.",
+    "rescan": "Rescan",
+    "advanceduser": "Advanced Mode"
   },
   "about_modal": {
     "title": "About",
@@ -131,9 +134,9 @@
       "button": "About"
     },
     "reindex": {
-      "name": "Reindex blockchain",
-      "shield": "Reindex",
-      "explain": "Click to reindex the blockchain. Restart the wallet after it closes automatically. This will not affect your wallet data. If you have trouble connecting, reindexing might help. However, first try restarting your computer."
+      "name": "Check blockchain",
+      "shield": "Check",
+      "explain": "Click to reindex the blockchain or rescan wallet. This may need restart the wallet if it'll be closed automatically. This will not affect your wallet data. If you have trouble connecting, reindexing or rescanning might help. However, first try restarting your computer."
     },
     "shieldto": {
       "name": "Shield to address",

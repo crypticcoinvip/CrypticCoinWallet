@@ -22,6 +22,22 @@ class ReindexModal extends React.Component {
     isReindexing: false,
     isRescanning: false,
     isHardReindexing: false,
+    advancedMode: false,
+  }
+
+  isInService() {
+    return this.state.isReindexing && this.state.isRescanning && this.state.isHardReindexing && this.props.AccountInformationStore.info.state === ''
+  }
+
+  toggle() {
+    this.setState({
+      advancedMode: !this.state.advancedMode,
+    })
+  }
+
+  cleanAndReindex() {
+    this.setState({ isHardReindexing: true })
+    ipcRenderer.send('request-clean-reindex', {});
   }
 
   reindex() {
@@ -30,6 +46,7 @@ class ReindexModal extends React.Component {
   }
 
   rescan() {
+    this.setState({ isRescanning: true })
     ipcRenderer.send('request-rescan', {});
   }
 
@@ -40,34 +57,11 @@ class ReindexModal extends React.Component {
         {...this.props}
         title={title}
         id="reindexModal"
+        style={{
+          maxHeight: '90%',
+        }}
       >
         <div className="container">
-          <div className="row">
-            <div className="col s9 offset-s3">
-              <div className="container">
-                <div className="container" style={{ marginBottom: '20px' }}>
-                  <Info>{i18nReact.translate('reindex_modal.subreindex')}</Info>
-                </div>
-                <button
-                  className={!this.state.isReindexing ? "btn grey darken-3 waves-effect waves-light" : "btn grey darken-3 waves-effect waves-light disabled"}
-                  onClick={
-                    !this.state.isReindexing
-                      ? () => this.reindex()
-                      : () => {}
-                  }
-                  style={{
-                    display: 'inline-flex',
-                    justifyItems: 'center',
-                    alignItems: 'center',
-                    alignSelf: 'center',
-                    justifyContent: 'center',
-                  }}                      
-                >
-                  <Repeat style={{ fill: '#fff', marginRight: '10px' }} />{i18nReact.translate('reindex_modal.reindex')}
-                </button>
-              </div>
-            </div>
-          </div>
 
           <div className="row">
             <div className="col s9 offset-s3">
@@ -77,14 +71,14 @@ class ReindexModal extends React.Component {
                 </div>
                 <button
                   className={
-                    this.props.AccountInformationStore.info.state === 'rescanning' || this.state.isRescanning 
-                    ? "btn grey darken-3 waves-effect waves-light disabled" 
-                    : "btn grey darken-3 waves-effect waves-light"
+                    this.isInService()
+                      ? "btn grey darken-3 waves-effect waves-light disabled"
+                      : "btn grey darken-3 waves-effect waves-light"
                   }
                   onClick={
-                    this.props.AccountInformationStore.info.state !== 'rescanning'
+                    !this.isInService()
                       ? () => this.rescan()
-                      : () => {}
+                      : () => { }
                   }
                   style={{
                     display: 'inline-flex',
@@ -92,13 +86,90 @@ class ReindexModal extends React.Component {
                     alignItems: 'center',
                     alignSelf: 'center',
                     justifyContent: 'center',
-                  }}                      
+                    marginBottom: '40px',
+                  }}
                 >
                   <Repeat style={{ fill: '#fff', marginRight: '10px' }} />{i18nReact.translate('reindex_modal.rescan')}
                 </button>
               </div>
             </div>
-          </div>          
+          </div>
+
+          <div className="row">
+            <div className="col s9 offset-s3">
+              <div className="container">
+                <div className="container" style={{ marginBottom: '20px' }}>
+                  <Info>{i18nReact.translate('reindex_modal.subreindex')}</Info>
+                </div>
+                <button
+                  className={!this.isInService() ? "btn grey darken-3 waves-effect waves-light" : "btn grey darken-3 waves-effect waves-light disabled"}
+                  onClick={
+                    !this.isInService()
+                      ? () => this.reindex()
+                      : () => { }
+                  }
+                  style={{
+                    display: 'inline-flex',
+                    justifyItems: 'center',
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '40px',
+                  }}
+                >
+                  <Repeat style={{ fill: '#fff', marginRight: '10px' }} />{i18nReact.translate('reindex_modal.reindex')}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col s9 offset-s3">
+              <div className="switch">
+              <label>
+                {i18nReact.translate('reindex_modal.advanceduser')} Off
+                <input type="checkbox"
+                  checked={this.state.advancedMode}
+                  onChange={this.toggle.bind(this)}
+                />
+                <span className="lever"></span>
+                On
+              </label>
+            </div>
+            </div>
+            <div className="col s9 offset-s3"
+              style={{ display: this.state.advancedMode ? 'block' : 'none' }}
+            >
+              <div className="container">
+                <div className="container" style={{ marginBottom: '20px' }}>
+                  <Info>{i18nReact.translate('reindex_modal.subcleanreindex')}</Info>
+                </div>
+                <button
+                  className={
+                    this.isInService()
+                      ? "btn grey darken-3 waves-effect waves-light disabled"
+                      : "btn grey darken-3 waves-effect waves-light"
+                  }
+                  onClick={
+                    !this.isInService()
+                      ? () => this.cleanAndReindex()
+                      : () => { }
+                  }
+                  style={{
+                    display: 'inline-flex',
+                    justifyItems: 'center',
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '40px',
+                  }}
+                >
+                  <Repeat style={{ fill: '#fff', marginRight: '10px' }} />{i18nReact.translate('reindex_modal.cleanreindex')}
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </Modal>
     )
