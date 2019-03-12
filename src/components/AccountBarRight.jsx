@@ -133,7 +133,7 @@ class AccountBarRight extends React.Component {
               id="sending"
               data-position="bottom"
               data-tooltip={this.props.AccountInformationStore.unlocked && this.props.AccountInformationStore.info.loaded ? 
-                "To send CRYP unlock your wallet" : ""}
+                "" : "To send CRYP unlock your wallet"}
               style={{
                 marginLeft: '12px',
                 marginRight: '32px',
@@ -167,7 +167,7 @@ class AccountBarRight extends React.Component {
               }
               data-position="bottom"
               data-tooltip={this.props.AccountInformationStore.unlocked && this.props.AccountInformationStore.info.loaded ? 
-                "To receive CRYP unlock your wallet" : ""}
+                "" : "To receive CRYP unlock your wallet"}
               style={{
                 marginLeft: '12px',
                 marginRight: '32px',

@@ -260,7 +260,7 @@ class SendModal extends React.Component {
       >
         <div className="container">
           <div className="row">
-            <div className="col s9 offset-s3">
+            <div className="col s12 l9 offset-l3">
               <div className="container">
                 <Info>
                   {i18nReact.translate('sendPanel.recipient')}
@@ -291,7 +291,7 @@ class SendModal extends React.Component {
                 </label>
                 <div className="container" style={{ marginBottom: '20px', marginTop: '16px' }}>
                   <div className="row">
-                    <div className="col s5">
+                    <div className="col s12 l5">
                       <Info>
                         {i18nReact.translate('sendPanel.amount')}
                       </Info>
@@ -313,7 +313,7 @@ class SendModal extends React.Component {
                         {i18nReact.translate('sendPanel.amountInfo')}
                       </label>
                     </div>
-                    <div className="col s6 offset-s1">
+                    <div className="col s12 l6 offset-l1">
                       <Info>
                         {i18nReact.translate('sendPanel.addressLabel')}
                       </Info>
@@ -341,7 +341,7 @@ class SendModal extends React.Component {
                         {(this.getBalance().total * this.getPrice()).toLocaleString(this.getLocaleId())}
                       </Balance>
                     </div>
-                    <div className="col s6 offset-s1">
+                    <div className="col s12 l6 offset-l1">
                       <BalanceTitle>
                         {i18nReact.translate('sendPanel.balanceCRYP')}
                       </BalanceTitle>

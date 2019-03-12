@@ -68,7 +68,7 @@ class ReindexModal extends React.Component {
         <div className="container">
 
           <div className="row">
-            <div className="col s9 offset-s3">
+            <div className="col s12 l9 offset-l3">
               <div className="container">
                 <div className="container" style={{ marginBottom: '20px' }}>
                   <Info>{i18nReact.translate('reindex_modal.subrescan')}</Info>
@@ -100,7 +100,7 @@ class ReindexModal extends React.Component {
           </div>
 
           <div className="row">
-            <div className="col s9 offset-s3">
+            <div className="col s12 l9 offset-l3">
               <div className="container">
                 <div className="container" style={{ marginBottom: '20px' }}>
                   <Info>{i18nReact.translate('reindex_modal.subreindex')}</Info>
@@ -128,7 +128,7 @@ class ReindexModal extends React.Component {
           </div>
 
           <div className="row">
-            <div className="col s9 offset-s3">
+            <div className="col s12 l9 offset-l3">
               <div className="switch">
               <label>
                 {i18nReact.translate('reindex_modal.advanceduser')} Off
@@ -141,7 +141,7 @@ class ReindexModal extends React.Component {
               </label>
             </div>
             </div>
-            <div className="col s9 offset-s3"
+            <div className="col s12 l9 offset-l3"
               style={{ display: this.state.advancedMode ? 'block' : 'none' }}
             >
               <div className="container">

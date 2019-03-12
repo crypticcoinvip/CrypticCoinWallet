@@ -69,7 +69,7 @@ class AccountBarRightSmall extends React.Component {
             id="sending"
             data-position="bottom"
             data-tooltip={this.props.AccountInformationStore.unlocked && this.props.AccountInformationStore.info.loaded ? 
-              "To send CRYP unlock your wallet" : ""}
+              "" : "To send CRYP unlock your wallet"}
             style={{
               padding: '17px',
               lineHeight: '40px',
@@ -87,7 +87,7 @@ class AccountBarRightSmall extends React.Component {
                 id="sending"
                 data-position="bottom"
                 data-tooltip={this.props.AccountInformationStore.unlocked && this.props.AccountInformationStore.info.loaded ? 
-                  "To send CRYP unlock your wallet" : "" }
+                  "" : "To send CRYP unlock your wallet" }
                 style={{
                   padding: '8px',
                   lineHeight: '30px',

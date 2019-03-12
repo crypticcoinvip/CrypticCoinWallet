@@ -57,7 +57,7 @@ class ReceiveModal extends React.Component {
       >
         <div className="container">
           <div className="row">
-            <div className="col s3">
+            <div className="col s12 l3">
               {this.props.AddressStore.lastReceive ?
                 <QRCodeReact
                   value={this.props.AddressStore.lastReceive}
@@ -69,8 +69,7 @@ class ReceiveModal extends React.Component {
                   width={128} />
                 : null}
             </div>
-            <div className="col s9">
-              <div className="container">
+            <div className="col s12 l9">
                 <div className="container" style={{ marginBottom: '20px' }}>
                   <Info>{i18nReact.translate('receive.address')}</Info>
                   <Input
@@ -100,6 +99,8 @@ class ReceiveModal extends React.Component {
                 >
                   <Repeat style={{ fill: '#fff', marginRight: '10px' }} />{i18nReact.translate('receive.taddress')}
                 </button>
+                <br/>
+                <br/>
                 <button
                   className="btn grey darken-3 waves-effect waves-light"
                   onClick={
@@ -118,7 +119,6 @@ class ReceiveModal extends React.Component {
                   <Repeat style={{ fill: '#fff', marginRight: '10px' }} />{i18nReact.translate('receive.zaddress')}
                 </button>
               </div>
-            </div>
           </div>
         </div>
       </Modal>

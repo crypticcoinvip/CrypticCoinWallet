@@ -53,7 +53,7 @@ class Unlock extends Component {
       >
         <div className="container">
           <div className="row">
-            <div className="col s9 offset-s3">
+            <div className="col s12 l9 offset-l3">
               <div className="container">
                 <div className="container" style={{ marginBottom: '20px' }}>
                   <form onSubmit={this.unlocking.bind(this)}>
