@@ -228,6 +228,7 @@ class SendModal extends React.Component {
                         address: '',
                         label: '',
                         status: SendState.OPEN,
+                        password: '',
                       });
                     }, 1000);
                   } else if (status === 'failed') {
@@ -245,6 +246,7 @@ class SendModal extends React.Component {
                   address: '',
                   label: '',
                   status: SendState.OPEN,
+                  password: '',
                 });
               }, 1000);
             }, 500);
@@ -254,6 +256,7 @@ class SendModal extends React.Component {
           this.setState({
             status: SendState.ERROR,
             error: JSON.parse(e).error.message,
+            password: '',
           });
           setTimeout(() => {
             this.setState({
@@ -315,6 +318,7 @@ class SendModal extends React.Component {
                         {i18nReact.translate('sendPanel.amount')}
                       </Info>
                       <Input
+                        name="amount"
                         value={this.state.amount}
                         onChange={(event) => {
                           const regex = /^[0-9.,]+$/

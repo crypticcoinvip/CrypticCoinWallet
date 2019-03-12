@@ -146,16 +146,16 @@ class Address extends React.Component {
             <div className="row" style={{ wordWrap: 'break-word' }}>
               <div>{address}</div>
               <a href="#" onClick={() => {
-                  this.props.AddressStore.lastSend = address;
-                  $('#sendModal').modal('open');
+                  this.props.AddressStore.lastSend = address
+                  $('#sendModal').modal('open')
                 }
               }>
                 {T.default.translate('account-bar.send')}
               </a>
               {'\u00A0\u00A0'}
               <a href="#" onClick={() => {
-                  this.props.AddressStore.lastReceive = address;
-                  $('#receiveModal').modal('open');
+                  this.props.AddressStore.lastReceive = address
+                  $('#receiveModal').modal('open')
                 }
               }>
                 {T.default.translate('account-bar.receive')}
