@@ -58,7 +58,7 @@ class AddressList extends Component {
             <div>
               <Collapsible style={{ overflow: 'overlay', maxHeight: 'calc(100vh - 177px)' }}>
                 {this.props.AddressStore.lastAddress.map(
-                  address => (
+                  address => (address.deleted === true ? '' :
                     <Address {...address} key={`${address.address}`} />
                   ),
                 )}

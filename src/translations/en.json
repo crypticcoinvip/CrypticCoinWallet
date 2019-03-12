@@ -1,7 +1,8 @@
 {
   "account-bar": {
     "receive": "Receive",
-    "send": "Send"
+    "send": "Send",
+    "sendwhole": "Send whole amount"
   },
   "receive": {
     "title": "Receive CrypticCoin",

@@ -154,6 +154,15 @@ class Address extends React.Component {
               </a>
               {'\u00A0\u00A0'}
               <a href="#" onClick={() => {
+                  this.props.AddressStore.lastSend = address
+                  this.props.AddressStore.lastAmount = amount
+                  $('#sendModal').modal('open')
+                }
+              }>
+                {T.default.translate('account-bar.sendwhole')}
+              </a>
+              {'\u00A0\u00A0'}
+              <a href="#" onClick={() => {
                   this.props.AddressStore.lastReceive = address
                   $('#receiveModal').modal('open')
                 }

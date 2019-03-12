@@ -3,6 +3,7 @@ import * as React from 'react'
 import i18nReact from 'i18n-react'
 import styledComponents from 'styled-components'
 import uuidv5 from 'uuid/v5'
+import BigNumber from 'bignumber.js'
 
 import Modal from '../Modal'
 import secret from '../../secret'
@@ -74,7 +75,7 @@ class SendModal extends React.Component {
       warningAmount: false,
       instantTx: false,
       isInstantTxAvailable: false,
-      fee: 0,
+      fee: 0.000001,
       subtractFee: false
     }
     this.getDPosAvailable()
@@ -137,7 +138,7 @@ class SendModal extends React.Component {
       address, isPassword, password, warningAddressTo, warningAddressFrom, warningAmount, instantTx, fee, subtractFee
     } = this.state
 
-    let amount = this.state.amount
+    let amount = this.props.AddressStore.lastAmount
 
     const from = this.props.AddressStore.lastSend
 
@@ -178,7 +179,8 @@ class SendModal extends React.Component {
     }
 
     if (subtractFee) {
-      amount = amount - fee
+      const substracted = BigNumber(amount).minus(new BigNumber(fee, 8))
+      amount = substracted.toFixed(8)
     }
 
     const data = localStorage.getItem('cryp_hash');
@@ -199,8 +201,6 @@ class SendModal extends React.Component {
     if (address.substr(0, 2) === 'cc' || from) { 
       Materialize.toast(`${i18nReact.translate('asyncOperations.send')} ${i18nReact.translate('asyncOperations.started')}`, 3000); 
     }
-
-
 
     setTimeout(() => {
       AccountInformationStore.sendTransaction(address, amount, from, fee, instantTx)
@@ -231,6 +231,7 @@ class SendModal extends React.Component {
                         password: '',
                       });
                     }, 1000);
+                    this.props.AddressStore.lastAmount = 0
                   } else if (status === 'failed') {
                     Materialize.toast(`${statuses[0].error.message}`, 4000);
                   }
@@ -248,6 +249,7 @@ class SendModal extends React.Component {
                   status: SendState.OPEN,
                   password: '',
                 });
+                this.props.AddressStore.lastAmount = 0
               }, 1000);
             }, 500);
           }
@@ -265,12 +267,12 @@ class SendModal extends React.Component {
             });
           }, 2500);
         });
-    }, 1000);
+    }, 1000)
   }
 
   render() {
     const { props } = this;
-    const { warningAddressTo, warningAddressFrom, warningAmount } = this.state;
+    const { warningAddressTo, warningAddressFrom, warningAmount } = this.state
     return (
       <Modal
         {...props}
@@ -302,7 +304,7 @@ class SendModal extends React.Component {
                 </Info>
                 <Input
                   value={this.props.AddressStore.lastSend}
-                  name="from"
+                  // name="from"
                   onChange={e => { this.props.AddressStore.lastSend = e.target.value }}
                   placeholder={
                     i18nReact.translate('sendPanel.zaddressplaceholder')
@@ -318,13 +320,12 @@ class SendModal extends React.Component {
                         {i18nReact.translate('sendPanel.amount')}
                       </Info>
                       <Input
-                        name="amount"
-                        value={this.state.amount}
+                        value={this.props.AddressStore.lastAmount}
                         onChange={(event) => {
                           const regex = /^[0-9.,]+$/
                           const amount = event.target.value
                           if (amount === '' || regex.test(amount)) {
-                            this.setState({ amount })
+                            this.props.AddressStore.lastAmount = amount
                             this.getDPosAvailable().then(() => this.getFee())                            
                           }
                         }}
@@ -432,8 +433,8 @@ class SendModal extends React.Component {
                   {this.state.status === SendState.OPEN
                     && `${i18nReact.translate('sendPanel.sendButton')}${' '}
                   ${
-                    this.state.amount
-                      ? `${this.state.amount.toLocaleString(this.getLocaleId())} CRYP ($${(this.state.amount * this.getPrice()).toLocaleString(this.getLocaleId())}) ${this.state.subtractFee ? '-' : '+'} ${this.state.fee} CRYP Fee`
+                    this.props.AddressStore.lastAmount
+                      ? `${this.props.AddressStore.lastAmount.toLocaleString(this.getLocaleId())} CRYP ($${(this.props.AddressStore.lastAmount * this.getPrice()).toLocaleString(this.getLocaleId())}) ${this.state.subtractFee ? '-' : '+'} ${this.state.fee} CRYP Fee`
                       : ''
                     }`}
                   {this.state.status === SendState.SENDING
@@ -448,7 +449,7 @@ class SendModal extends React.Component {
                     {i18nReact.translate('sendPanel.walletAfterTransaction')}
                     {' '}
                     <b>
-                      {(this.getBalance().total - this.state.amount - this.state.fee).toLocaleString(this.getLocaleId())}
+                      {(this.getBalance().total - this.props.AddressStore.lastAmount - this.state.fee).toLocaleString(this.getLocaleId())}
                       {' '}
                       CRYP
                     </b>
