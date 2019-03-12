@@ -75,6 +75,7 @@ class SendModal extends React.Component {
       instantTx: false,
       isInstantTxAvailable: false,
       fee: 0,
+      subtractFee: false
     }
     this.getDPosAvailable()
   }
@@ -119,12 +120,24 @@ class SendModal extends React.Component {
       value: !this.state.instantTx,
     })
     this.getFee()
+  } 
+
+  toggleFee() {
+    this.setState({
+      subtractFee: !this.state.subtractFee,
+    })
+    this.props.SettingsStore.setSettingOption({
+      key: 'subtractFee',
+      value: !this.state.subtractFee,
+    })
   }  
 
   sendTransaction() {
     const {
-      address, amount, isPassword, password, warningAddressTo, warningAddressFrom, warningAmount, instantTx, fee
+      address, isPassword, password, warningAddressTo, warningAddressFrom, warningAmount, instantTx, fee, subtractFee
     } = this.state
+
+    let amount = this.state.amount
 
     const from = this.props.AddressStore.lastSend
 
@@ -164,6 +177,10 @@ class SendModal extends React.Component {
       return;
     }
 
+    if (subtractFee) {
+      amount = amount - fee
+    }
+
     const data = localStorage.getItem('cryp_hash');
     const hash = uuidv5(password, secret);
 
@@ -181,7 +198,9 @@ class SendModal extends React.Component {
 
     if (address.substr(0, 2) === 'cc' || from) { 
       Materialize.toast(`${i18nReact.translate('asyncOperations.send')} ${i18nReact.translate('asyncOperations.started')}`, 3000); 
-    }  
+    }
+
+
 
     setTimeout(() => {
       AccountInformationStore.sendTransaction(address, amount, from, fee, instantTx)
@@ -358,6 +377,23 @@ class SendModal extends React.Component {
                     <div className="col s12">
                       <div className="switch">
                         <label>
+                          Add fee
+                          <input type="checkbox"
+                                  checked={this.state.subtractFee}
+                                  onChange={this.toggleFee.bind(this)}
+                                />
+                          <span className="lever"></span>
+                          Subtract fee
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="container" style={{ marginBottom: '20px', marginTop: '16px' }}>
+                  <div className="row">
+                    <div className="col s12">
+                      <div className="switch">
+                        <label>
                           Standard TX
                           <input type="checkbox"
                                   checked={this.state.instantTx}
@@ -393,7 +429,7 @@ class SendModal extends React.Component {
                     && `${i18nReact.translate('sendPanel.sendButton')}${' '}
                   ${
                     this.state.amount
-                      ? `${this.state.amount.toLocaleString(this.getLocaleId())} CRYP ($${(this.state.amount * this.getPrice()).toLocaleString(this.getLocaleId())}) + ${this.state.fee} CRYP Fee`
+                      ? `${this.state.amount.toLocaleString(this.getLocaleId())} CRYP ($${(this.state.amount * this.getPrice()).toLocaleString(this.getLocaleId())}) ${this.state.subtractFee ? '-' : '+'} ${this.state.fee} CRYP Fee`
                       : ''
                     }`}
                   {this.state.status === SendState.SENDING
