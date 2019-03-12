@@ -134,7 +134,7 @@
       "button": "About"
     },
     "reindex": {
-      "name": "Check blockchain",
+      "name": "Recheck blockchain",
       "shield": "Check",
       "explain": "Click to reindex the blockchain or rescan wallet. This may need restart the wallet if it'll be closed automatically. This will not affect your wallet data. If you have trouble connecting, reindexing or rescanning might help. However, first try restarting your computer."
     },
