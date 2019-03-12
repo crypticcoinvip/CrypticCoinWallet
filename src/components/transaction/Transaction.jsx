@@ -141,7 +141,7 @@ class Transaction extends React.Component {
           }}
         >
           <div
-            className="col s1"
+            className="col s1 m1"
             style={{
               textAlign: 'center',
               fontWeight: 500,
@@ -165,7 +165,7 @@ class Transaction extends React.Component {
               {moment.unix(time).format('DD')}
             </TextContainer>
           </div>
-          <CenterDiv className="col s1">
+          <CenterDiv className="col s1 hide-on-small-only">
             {category.includes('receive') ? (
               <TransactionIcon>
                 <ArrowDown width={18} height={18} />
@@ -180,7 +180,7 @@ class Transaction extends React.Component {
               </TransactionIcon>
             )}
           </CenterDiv>
-          <CenterDiv className="col s1">
+          <CenterDiv className="col s1 hide-on-small-only">
             {
               dpos_instant ?
               <TransactionIcon {...{ up: dpos_status === 'commited' ? 'rgb(222,222,222)' : 'orange' }}>
@@ -189,7 +189,7 @@ class Transaction extends React.Component {
             }
           </CenterDiv>
           <div
-            className={'col s8'}
+            className={'col s11 m8'}
             style={{
               fontWeight: 'bold',
               color: category.includes('send') ? '#dc2b3d' : '#00917a',
@@ -208,7 +208,7 @@ class Transaction extends React.Component {
               >
                 {category.includes('send') ? '-' : '+'}
                 {Math.abs(amount + fee)
-                  .toFixed(3)
+                  .toFixed(8)
                   .toLocaleString()}{' '}
                 CRYP
               </span>

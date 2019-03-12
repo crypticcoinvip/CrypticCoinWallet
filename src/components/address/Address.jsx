@@ -120,7 +120,7 @@ class Address extends React.Component {
                 }}
               >
                 {Math.abs(amount)
-                  .toFixed(3)
+                  .toFixed(8)
                   .toLocaleString()}{' '}
                 CRYP
               </span>
