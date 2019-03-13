@@ -107,6 +107,13 @@ Section
   Delete "$INSTDIR\resources\*.key"
   Delete "$INSTDIR\resources\*.params"
 
+  FileOpen $4 "$PROFILE\AppData\Roaming\Crypticcoin\CrypticCoin.conf" a
+  FileSeek $4 0 END
+  FileWrite $4 "$\r$\n" ; we write a new line
+  FileWrite $4 "exportdir=$PROFILE\Desktop"
+  FileWrite $4 "$\r$\n" ; we write an extra line
+  FileClose $4 ; and close the file
+
 SectionEnd
 
 ;--------------------------------
