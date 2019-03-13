@@ -30,6 +30,13 @@
     "rescan": "Rescan",
     "advanceduser": "Advanced Mode"
   },
+  "export_modal": {
+    "title": "Export wallet",
+    "subtitle": "Click Export to export private keys to the Desktop. Do not share this file to any person - you can lost control to your wallet.",
+    "export": "Export",
+    "info": "Make sure that nobody can see your input.",
+    "wrongpass": " The password you entered was incorrect."
+  },
   "about_modal": {
     "title": "About",
     "subtitle": ""
