@@ -156,6 +156,7 @@ class Address extends React.Component {
               <a href="#" onClick={() => {
                   this.props.AddressStore.lastSend = address
                   this.props.AddressStore.lastAmount = amount
+                  this.props.AddressStore.lastSubtract = true
                   $('#sendModal').modal('open')
                 }
               }>

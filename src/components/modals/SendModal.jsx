@@ -124,19 +124,20 @@ class SendModal extends React.Component {
   } 
 
   toggleFee() {
-    this.setState({
-      subtractFee: !this.state.subtractFee,
-    })
+    //TODO: 
+    this.props.AddressStore.lastSubtract = !this.props.AddressStore.lastSubtract
     this.props.SettingsStore.setSettingOption({
       key: 'subtractFee',
-      value: !this.state.subtractFee,
+      value: this.props.AddressStore.lastSubtract,
     })
   }  
 
   sendTransaction() {
     const {
-      address, isPassword, password, warningAddressTo, warningAddressFrom, warningAmount, instantTx, fee, subtractFee
+      address, isPassword, password, warningAddressTo, warningAddressFrom, warningAmount, instantTx, fee
     } = this.state
+
+    const subtractFee = this.props.AddressStore.lastSubtract
 
     let amount = this.props.AddressStore.lastAmount
 
@@ -384,7 +385,7 @@ class SendModal extends React.Component {
                         <label>
                           Add fee
                           <input type="checkbox"
-                                  checked={this.state.subtractFee}
+                                  checked={this.props.AddressStore.lastSubtract}
                                   onChange={this.toggleFee.bind(this)}
                                 />
                           <span className="lever"></span>
@@ -434,7 +435,7 @@ class SendModal extends React.Component {
                     && `${i18nReact.translate('sendPanel.sendButton')}${' '}
                   ${
                     this.props.AddressStore.lastAmount
-                      ? `${this.props.AddressStore.lastAmount.toLocaleString(this.getLocaleId())} CRYP ($${(this.props.AddressStore.lastAmount * this.getPrice()).toLocaleString(this.getLocaleId())}) ${this.state.subtractFee ? '-' : '+'} ${this.state.fee} CRYP Fee`
+                      ? `${this.props.AddressStore.lastAmount.toLocaleString(this.getLocaleId())} CRYP ($${(this.props.AddressStore.lastAmount * this.getPrice()).toLocaleString(this.getLocaleId())}) ${this.props.AddressStore.lastSubtract ? '-' : '+'} ${this.state.fee} CRYP Fee`
                       : ''
                     }`}
                   {this.state.status === SendState.SENDING

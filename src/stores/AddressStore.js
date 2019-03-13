@@ -92,7 +92,8 @@ decorate(AddressStore, {
   searchValue: computed,
   lastSend: observable,
   lastReceive: observable,
-  lastAmount: observable
+  lastAmount: observable,
+  lastSubtract: observable
 })
 
 const store = new AddressStore()
