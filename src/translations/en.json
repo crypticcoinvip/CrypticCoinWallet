@@ -115,7 +115,7 @@
       "name": "Export Wallet",
       "button": "Export",
       "explain": "Save keys to some place. Make sure no one has access to these files, because they contain important private information",
-      "success": "Keys successfully exported",
+      "success": "Keys successfully exported to your Desktop",
       "error": "Keys export failed"
     },
     "importwallet": {

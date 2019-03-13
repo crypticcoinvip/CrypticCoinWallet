@@ -19,12 +19,14 @@ export class ExportWallet extends React.Component {
           <Button
             className="grey darken-3"
             onClick={() => {
-              let filename = remote.dialog.showSaveDialog(
-                { properties: ['openFile', 'showHiddenFiles'] }
-              )
+              // let filename = remote.dialog.showSaveDialog(
+              //   { properties: ['openFile', 'showHiddenFiles'] }
+              // )
+              const date = (new Date()).toLocaleString().replace(/[^\d]+/g, '')
+              const filename = `cckeys${date}`
               this.props.AccountInformationStore.exportWallet(filename).then((response) => {
-                if (response === filename) {
-                  Materialize.toast(i18nReact.translate('settings.exportwallet.success'), 3000)
+                if (response.indexOf(filename) !== -1) {
+                  Materialize.toast(`${i18nReact.translate('settings.exportwallet.success')} (${response})`, 3000)
                 } else {
                   Materialize.toast(i18nReact.translate('settings.exportwallet.error'), 3000)
                 }
