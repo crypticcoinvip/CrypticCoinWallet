@@ -27,7 +27,7 @@
 
   !define MUI_ABORTWARNING
   !define NAME "CrypticCoin"
-  !define PRODUCT_VERSION "1.0.7"
+  !define PRODUCT_VERSION "2.0.2"
   !define MANUFACTURER "Integral Team"
   !define PRODUCT_SITE "https://crypticcoin.io/"
 !ifndef PRODUCT_UNINST_KEY
@@ -95,6 +95,9 @@ Section
   CreateDirectory "$PROFILE\AppData\Roaming\CrypticcoinParams"
   CopyFiles "$INSTDIR\resources\sprout-proving.key" "$PROFILE\AppData\Roaming\CrypticcoinParams"
   CopyFiles "$INSTDIR\resources\sprout-verifying.key" "$PROFILE\AppData\Roaming\CrypticcoinParams"
+  CopyFiles "$INSTDIR\resources\sapling-output.params" "$PROFILE\AppData\Roaming\CrypticcoinParams"
+  CopyFiles "$INSTDIR\resources\sapling-spend.params" "$PROFILE\AppData\Roaming\CrypticcoinParams"
+  CopyFiles "$INSTDIR\resources\sprout-groth16.params" "$PROFILE\AppData\Roaming\CrypticcoinParams"
 
   CreateDirectory "$PROFILE\AppData\Roaming\Crypticcoin"
   CopyFiles "$INSTDIR\resources\CrypticCoin.conf" "$PROFILE\AppData\Roaming\Crypticcoin"
@@ -102,6 +105,7 @@ Section
   CreateDirectory "C:\Crypticcoin\Tor"
   CopyFiles "$INSTDIR\resources\win32" "C:\Crypticcoin\Tor"
   Delete "$INSTDIR\resources\*.key"
+  Delete "$INSTDIR\resources\*.params"
 
 SectionEnd
 
