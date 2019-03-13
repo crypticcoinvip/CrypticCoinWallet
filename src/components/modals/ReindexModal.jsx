@@ -71,38 +71,6 @@ class ReindexModal extends React.Component {
             <div className="col s12 l9 offset-l3">
               <div className="container">
                 <div className="container" style={{ marginBottom: '20px' }}>
-                  <Info>{i18nReact.translate('reindex_modal.subrescan')}</Info>
-                </div>
-                <button
-                  className={
-                    this.isInService()
-                      ? "btn grey darken-3 waves-effect waves-light disabled"
-                      : "btn grey darken-3 waves-effect waves-light"
-                  }
-                  onClick={
-                    !this.isInService()
-                      ? () => this.rescan()
-                      : () => { }
-                  }
-                  style={{
-                    display: 'inline-flex',
-                    justifyItems: 'center',
-                    alignItems: 'center',
-                    alignSelf: 'center',
-                    justifyContent: 'center',
-                    marginBottom: '40px',
-                  }}
-                >
-                  <Repeat style={{ fill: '#fff', marginRight: '10px' }} />{i18nReact.translate('reindex_modal.rescan')}
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="row">
-            <div className="col s12 l9 offset-l3">
-              <div className="container">
-                <div className="container" style={{ marginBottom: '20px' }}>
                   <Info>{i18nReact.translate('reindex_modal.subreindex')}</Info>
                 </div>
                 <button
@@ -169,6 +137,38 @@ class ReindexModal extends React.Component {
                   }}
                 >
                   <Repeat style={{ fill: '#fff', marginRight: '10px' }} />{i18nReact.translate('reindex_modal.cleanreindex')}
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col s12 l9 offset-l3">
+              <div className="container">
+                <div className="container" style={{ marginBottom: '20px' }}>
+                  <Info>{i18nReact.translate('reindex_modal.subrescan')}</Info>
+                </div>
+                <button
+                  className={
+                    this.isInService()
+                      ? "btn grey darken-3 waves-effect waves-light disabled"
+                      : "btn grey darken-3 waves-effect waves-light"
+                  }
+                  onClick={
+                    !this.isInService()
+                      ? () => this.rescan()
+                      : () => { }
+                  }
+                  style={{
+                    display: 'inline-flex',
+                    justifyItems: 'center',
+                    alignItems: 'center',
+                    alignSelf: 'center',
+                    justifyContent: 'center',
+                    marginBottom: '40px',
+                  }}
+                >
+                  <Repeat style={{ fill: '#fff', marginRight: '10px' }} />{i18nReact.translate('reindex_modal.rescan')}
                 </button>
               </div>
             </div>
