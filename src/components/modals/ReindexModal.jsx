@@ -149,11 +149,7 @@ class ReindexModal extends React.Component {
                   <Info>{i18nReact.translate('reindex_modal.subrescan')}</Info>
                 </div>
                 <button
-                  className={
-                    this.isInService()
-                      ? "btn grey darken-3 waves-effect waves-light disabled"
-                      : "btn grey darken-3 waves-effect waves-light"
-                  }
+                  className="btn grey darken-3 waves-effect waves-light"
                   onClick={
                     !this.isInService()
                       ? () => this.rescan()
