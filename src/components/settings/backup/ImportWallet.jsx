@@ -40,16 +40,28 @@ export class ImportWallet extends React.Component {
 
                   const filename = fileNames[0];
 
+                  let importing = true
+
                   this.props.AccountInformationStore.importWallet(filename).then((response) => {
+                    importing = false
                     if (response === filename) {
                       Materialize.toast(i18nReact.translate('settings.importwallet.success'), 3000)
+                      Materialize.toast(i18nReact.translate('settings.importwallet.done'), 15000)
                     } else {
                       Materialize.toast(i18nReact.translate('settings.importwallet.error'), 3000)
                     }
                   }).catch((response) => {
+                    importing = false
                     const r = JSON.parse(response)
                     Materialize.toast((r && r.error) ? r.error.message : i18nReact.translate('settings.importwallet.error'), 3000)
                   })
+
+                  let interval = setInterval(() => {
+                    if (importing)
+                      Materialize.toast(i18nReact.translate('settings.importwallet.progress'), 3000)
+                    else
+                      clearInterval(interval)
+                  }, 10000)
                 })
             }}
           >

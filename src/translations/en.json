@@ -130,6 +130,8 @@
       "button": "Import",
       "explain": "Upload exported keys if you want to restore wallet data",
       "success": "Keys successfully imported",
+      "done": "Please do Rescan wallet (Settings->Check) to finish operation",
+      "progress": "Import... Please wait...",
       "error": "Keys import failed"
     },
     "shieldcoinbase": {
