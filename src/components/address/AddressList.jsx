@@ -23,7 +23,35 @@ const AddressTitle = styled.div`
   }
 `
 
+const HideTitle = styled.div`
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-items: center;
+  place-content: space-around;
+  font-size: 26px;
+  height: 45px;
+`
+
 class AddressList extends Component {
+
+  state = {
+    hideEmpty: this.props.SettingsStore.getSettingOption('hideEmpty', false)
+  }
+
+  toggle() {
+    this.props.SettingsStore.setSettingOption({
+      key: 'hideEmpty',
+      value: !this.state.hideEmpty,
+    })
+    this.setState({
+      hideEmpty: !this.state.hideEmpty,
+    })
+  }
+
+  componentDidMount() {
+
+  }
 
   render() {
     const CRYPFormatter = new Intl.NumberFormat(
@@ -39,7 +67,7 @@ class AddressList extends Component {
         <div className="container">
           <div className="container">
             <div className="row">
-              <AddressTitle className="col m6 hide-on-small-only">
+              <AddressTitle className="col m3 hide-on-small-only">
                 <List
                   style={{ fill: '#232323', marginRight: '10px' }}
                 />{' '}
@@ -49,6 +77,19 @@ class AddressList extends Component {
                   <LoadingIcon style={{ fill: '#232323', marginLeft: '12px' }}/>
                 }
               </AddressTitle>
+              <HideTitle className="col m3 hide-on-small-only">
+                <div className="switch">
+                  <label>
+                    Show empty
+                    <input type="checkbox"
+                      checked={this.state.hideEmpty}
+                      onChange={this.toggle.bind(this)}
+                    />
+                    <span className="lever"></span>
+                    Hide
+                  </label>
+                </div>
+              </HideTitle>
               <div className="col s12 m6">
                 <SearchBar />
               </div>
@@ -58,7 +99,7 @@ class AddressList extends Component {
             <div>
               <Collapsible style={{ overflow: 'overlay', maxHeight: 'calc(100vh - 177px)' }}>
                 {this.props.AddressStore.lastAddress.map(
-                  address => (address.deleted === true ? '' :
+                  address => ((address.deleted === true || (this.state.hideEmpty === true && address.amount === 0)) ? '' :
                     <Address {...address} key={`${address.address}`} />
                   ),
                 )}

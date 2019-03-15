@@ -98,16 +98,16 @@ class ReindexModal extends React.Component {
           <div className="row">
             <div className="col s12 l9 offset-l3">
               <div className="switch">
-              <label>
-                {i18nReact.translate('reindex_modal.advanceduser')} Off
-                <input type="checkbox"
-                  checked={this.state.advancedMode}
-                  onChange={this.toggle.bind(this)}
-                />
-                <span className="lever"></span>
-                On
-              </label>
-            </div>
+                <label>
+                  {i18nReact.translate('reindex_modal.advanceduser')} Off
+                  <input type="checkbox"
+                    checked={this.state.advancedMode}
+                    onChange={this.toggle.bind(this)}
+                  />
+                  <span className="lever"></span>
+                  On
+                </label>
+              </div>
             </div>
             <div className="col s12 l9 offset-l3"
               style={{ display: this.state.advancedMode ? 'block' : 'none' }}

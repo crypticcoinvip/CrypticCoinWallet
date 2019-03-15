@@ -29,6 +29,10 @@ export class SettingsStore {
     this[pair.key] = pair.value
   }
 
+  getSettingOption(key, value) {
+    return CCCacheStore.get(key, value)
+  }
+
   get appVersion() {
     return this.version
   }
