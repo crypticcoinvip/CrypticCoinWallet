@@ -117,15 +117,9 @@ class ReindexModal extends React.Component {
                   <Info>{i18nReact.translate('reindex_modal.subcleanreindex')}</Info>
                 </div>
                 <button
-                  className={
-                    this.isInService()
-                      ? "btn grey darken-3 waves-effect waves-light disabled"
-                      : "btn grey darken-3 waves-effect waves-light"
-                  }
+                  className="btn grey darken-3 waves-effect waves-light"
                   onClick={
-                    !this.isInService()
-                      ? () => this.cleanAndReindex()
-                      : () => { }
+                    () => this.cleanAndReindex()
                   }
                   style={{
                     display: 'inline-flex',
