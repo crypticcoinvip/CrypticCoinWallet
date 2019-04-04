@@ -100,7 +100,7 @@ export class TransactionStore {
           .toLocaleLowerCase()
           .includes(this.search.toLocaleLowerCase()))
         .sort((a, b) => b.time - a.time)
-        .slice(0, 9)
+        .sliceslice(0, 9)
     }
 
     return transactions.sort((a, b) => b.time - a.time).slice(0, 9);
