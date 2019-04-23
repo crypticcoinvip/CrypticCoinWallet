@@ -1,6 +1,6 @@
 {
   "name": "crypticcoin-wallet",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "CrypticCoin Wallet.",
   "author": "CrypticCoin Currency Team",
   "build": {
@@ -117,12 +117,12 @@
     "css-loader": "^1.0.0",
     "detect-port": "^1.2.3",
     "electron": "^2.0.8",
-    "electron-builder": "^20.28.1",
+    "electron-builder": "^20.40.2",
     "electron-devtools-installer": "^2.2.4",
     "electron-installer-debian": "^0.8.1",
     "electron-installer-dmg": "^2.0.0",
     "electron-packager": "^12.1.0",
-    "electron-rebuild": "^1.8.2",
+    "electron-rebuild": "^1.8.4",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.10.0",
     "enzyme-to-json": "^3.3.1",
