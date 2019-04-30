@@ -51,7 +51,7 @@ const createProc = (processPath, params = []) => {
       ...params,
       `-rpcuser=${auth.user}`,
       `-rpcpassword=${auth.pass}`,
-      '-printtoconsole',
+      // '-printtoconsole',
     ],
     {
       stdio: ['inherit', 'pipe', 'inherit'],
@@ -174,7 +174,9 @@ function createWindow() {
 
           break
         } else {
-          process.kill(-(ccProcess.pid), 'SIGINT')
+//          process.kill(-(ccProcess.pid), 'SIGINT')
+          runCli(`${process.resourcesPath}/crypticcoin-cli`, 'stop', true)
+          break
         }
       } catch (e) {
         console.log(e.message)
@@ -218,7 +220,9 @@ ipcMain.on('request-clean-reindex', (event, arg) => {
         runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
         break
       } else {
-        process.kill(-(ccProcess.pid), 'SIGINT')
+        runCli(`${process.resourcesPath}/crypticcoin-cli`, 'stop', true)
+        break
+//        process.kill(-(ccProcess.pid), 'SIGINT')
       }
     } catch (e) {
       log.info(e)
@@ -232,11 +236,11 @@ ipcMain.on('request-clean-reindex', (event, arg) => {
 
     let paths = []
     if (process.platform === 'win32') {
-      paths = [`${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\blocks`, `${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\chainstate`]
+      paths = [`${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\blocks`, `${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\chainstate`, `${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\dpos`, `${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\masternodes`]
     } else if (process.platform === 'linux') {
-      paths = [`${process.env.HOME}/.crypticcoin/blocks`, `${process.env.HOME}/.crypticcoin/chainstate`]
+      paths = [`${process.env.HOME}/.crypticcoin/blocks`, `${process.env.HOME}/.crypticcoin/chainstate`, `${process.env.HOME}/.crypticcoin/dpos`, `${process.env.HOME}/.crypticcoin/masternodes`]
     } else if (process.platform === 'darwin') {
-      paths = [`${process.env.HOME}/Library/Application\ Support/CrypticCoin/blocks`, `${process.env.HOME}/Library/Application\ Support/CrypticCoin/chainstate`]
+      paths = [`${process.env.HOME}/Library/Application\ Support/CrypticCoin/blocks`, `${process.env.HOME}/Library/Application\ Support/CrypticCoin/chainstate`, `${process.env.HOME}/Library/Application\ Support/CrypticCoin/dpos`, `${process.env.HOME}/Library/Application\ Support/CrypticCoin/masternodes`]
     }
 
     for (let k in paths) {
@@ -254,7 +258,9 @@ ipcMain.on('request-reindex', (event, arg) => {
         runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
         break
       } else {
-        process.kill(-(ccProcess.pid), 'SIGINT')
+        runCli(`${process.resourcesPath}/crypticcoin-cli`, 'stop', true)
+        break
+//        process.kill(-(ccProcess.pid), 'SIGINT')
       }
     } catch (e) {
       log.info(e)
@@ -265,7 +271,11 @@ ipcMain.on('request-reindex', (event, arg) => {
   isFinished('crypticcoind.exe', 'crypticcoind', 'crypticcoind').then(() => {
     return isFinished('crypticcoin-cli.exe', 'crypticcoin-cli', 'crypticcoin-cli')
   }).then(() => {
-    createProc(`${process.resourcesPath}/crypticcoind`, ['-reindex'])
+    if (process.platform === 'win32') {
+      createProc(`${process.resourcesPath}/crypticcoind.exe`, ['-reindex'])
+    } else {
+      createProc(`${process.resourcesPath}/crypticcoind`, ['-reindex'])
+    }
   })
 })
 
@@ -276,7 +286,9 @@ ipcMain.on('request-rescan', (event, arg) => {
         runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
         break
       } else {
-        process.kill(-(ccProcess.pid), 'SIGINT')
+        runCli(`${process.resourcesPath}/crypticcoin-cli`, 'stop', true)
+        break
+//        process.kill(-(ccProcess.pid), 'SIGINT')
       }
     } catch (e) {
       log.info(e)
@@ -287,7 +299,11 @@ ipcMain.on('request-rescan', (event, arg) => {
   isFinished('crypticcoind.exe', 'crypticcoind', 'crypticcoind').then(() => {
     return isFinished('crypticcoin-cli.exe', 'crypticcoin-cli', 'crypticcoin-cli')
   }).then(() => {
-    createProc(`${process.resourcesPath}/crypticcoind`, ['-rescan'])
+    if (process.platform === 'win32') {
+      createProc(`${process.resourcesPath}/crypticcoind.exe`, ['-rescan'])
+    } else {
+      createProc(`${process.resourcesPath}/crypticcoind`, ['-rescan'])
+    }
   })
 })
 
