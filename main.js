@@ -23,7 +23,21 @@ require('electron-context-menu')({
 
 log.info('App starting...')
 
-let mainWindow
+let mainWindow = null
+
+var shouldQuit = app.makeSingleInstance(function(commandLine, workingDirectory) {
+  // Someone tried to run a second instance, we should focus our window.
+  if (mainWindow) {
+    if (mainWindow.isMinimized()) mainWindow.restore();
+    mainWindow.focus();
+  }
+});
+
+if (shouldQuit) {
+  log.info('You are trying to run secondary instance of wallet! Quit!')
+  app.quit();
+  return;
+}
 
 let dev = false
 if (
@@ -113,6 +127,82 @@ if (process.env.NODE_ENV !== 'dev') {
   createProc(`${process.resourcesPath}/crypticcoind`)
 }
 
+function isFinished(win, mac, linux) {
+  let tries = 50
+  return new Promise(function cb(resolve, reject) {
+    const plat = process.platform
+    const cmd = plat == 'win32' ? 'tasklist' : (plat == 'darwin' ? 'ps -ax | grep ' + mac : (plat == 'linux' ? 'ps -A' : ''))
+    const proc = plat == 'win32' ? win : (plat == 'darwin' ? mac : (plat == 'linux' ? linux : ''))
+    if (cmd === '' || proc === '') {
+      // log.info('trace isFinished 1')
+      resolve(true)
+    }
+    exec(cmd, (err, stdout, stderr) => {
+      if (stdout.toLowerCase().indexOf(proc.toLowerCase()) === -1) {
+        // log.info('trace isFinished 2')
+        resolve(true)
+      } else {
+        if (--tries > 0) {
+          // log.info('trace isFinished 3')
+          setTimeout(function () {
+            cb(resolve, reject);
+          }, 500);
+        } else {
+          // log.info('trace isFinished 4')
+          resolve(false)
+        }
+      }
+    })
+  })
+}
+
+const sleep = (waitTimeInMs) => new Promise(resolve => setTimeout(resolve, waitTimeInMs));
+
+function isFinishedDaemonAndCli() {
+
+  return isFinished('crypticcoind.exe', 'crypticcoind', 'crypticcoind').then(() => {
+    return isFinished('crypticcoin-cli.exe', 'crypticcoin-cli', 'crypticcoin-cli').then(() => {
+      log.info('waiting 5s...')
+      /// ! important, otherwise node don't unlock pidlock after killing (sometimes)
+      return sleep(5000);
+    })
+  })
+}
+
+function killDaemon() {
+  log.log('Killing CrypticCoin process')
+
+  // let tries = 20
+  while (ccProcess && (!ccProcess.killed)) {
+    log.info('trying to call rpc "stop"...')
+
+    try {
+      if (process.platform === 'win32') {
+        runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
+        // const appName = 'tor.exe'
+        // exec(`taskkill /im ${appName} /t`, (err, stdout, stderr) => {
+        //   if (err) {
+        //     throw err
+        //   }
+
+        //   console.log('stdout', stdout)
+        //   console.log('stderr', stderr)
+        // })
+
+        break
+      } else {
+//          process.kill(-(ccProcess.pid), 'SIGINT')
+        runCli(`${process.resourcesPath}/crypticcoin-cli`, 'stop', true)
+        break
+      }
+    } catch (e) {
+      console.log(e.message)
+      break
+    }
+  }
+
+}
+
 function createWindow() {
   mainWindow = new BrowserWindow({
     width: 1200,
@@ -157,83 +247,20 @@ function createWindow() {
   })
 
   mainWindow.on('closed', () => {
-    log.log('Killing CrypticCoin process')
-    while (ccProcess && !ccProcess.killed) {
-      try {
-        if (process.platform === 'win32') {
-          runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
-          // const appName = 'tor.exe'
-          // exec(`taskkill /im ${appName} /t`, (err, stdout, stderr) => {
-          //   if (err) {
-          //     throw err
-          //   }
+    killDaemon()
 
-          //   console.log('stdout', stdout)
-          //   console.log('stderr', stderr)
-          // })
-
-          break
-        } else {
-//          process.kill(-(ccProcess.pid), 'SIGINT')
-          runCli(`${process.resourcesPath}/crypticcoin-cli`, 'stop', true)
-          break
-        }
-      } catch (e) {
-        console.log(e.message)
-        break
-      }
-    }
-
+    isFinishedDaemonAndCli().then(() => {
+      log.info("Daemon stopped")
+    })
     mainWindow = null
   })
 }
 
-function isFinished(win, mac, linux) {
-  let tries = 50
-  return new Promise(function cb(resolve, reject) {
-    const plat = process.platform
-    const cmd = plat == 'win32' ? 'tasklist' : (plat == 'darwin' ? 'ps -ax | grep ' + mac : (plat == 'linux' ? 'ps -A' : ''))
-    const proc = plat == 'win32' ? win : (plat == 'darwin' ? mac : (plat == 'linux' ? linux : ''))
-    if (cmd === '' || proc === '') {
-      resolve(true)
-    }
-    exec(cmd, (err, stdout, stderr) => {
-      if (stdout.toLowerCase().indexOf(proc.toLowerCase()) === -1) {
-        resolve(true)
-      } else {
-        if (--tries > 0) {
-          setTimeout(function () {
-            cb(resolve, reject);
-          }, 500);
-        } else {
-          resolve(false)
-        }
-      }
-    })
-  })
-}
-
 ipcMain.on('request-clean-reindex', (event, arg) => {
-  while (ccProcess && !ccProcess.killed) {
-    try {
-      if (process.platform === 'win32') {
-        runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
-        break
-      } else {
-        runCli(`${process.resourcesPath}/crypticcoin-cli`, 'stop', true)
-        break
-//        process.kill(-(ccProcess.pid), 'SIGINT')
-      }
-    } catch (e) {
-      log.info(e)
-      break
-    }
-  }
 
-  isFinished('crypticcoind.exe', 'crypticcoind', 'crypticcoind').then(() => {
-    return isFinished('crypticcoin-cli.exe', 'crypticcoin-cli', 'crypticcoin-cli')
-  }).then(() => {
+  killDaemon()
 
+  isFinishedDaemonAndCli().then(() => {
     let paths = []
     if (process.platform === 'win32') {
       paths = [`${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\blocks`, `${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\chainstate`, `${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\dpos`, `${process.env.USERPROFILE}\\AppData\\Roaming\\Crypticcoin\\masternodes`]
@@ -252,25 +279,10 @@ ipcMain.on('request-clean-reindex', (event, arg) => {
 })
 
 ipcMain.on('request-reindex', (event, arg) => {
-  while (ccProcess && !ccProcess.killed) {
-    try {
-      if (process.platform === 'win32') {
-        runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
-        break
-      } else {
-        runCli(`${process.resourcesPath}/crypticcoin-cli`, 'stop', true)
-        break
-//        process.kill(-(ccProcess.pid), 'SIGINT')
-      }
-    } catch (e) {
-      log.info(e)
-      break
-    }
-  }
 
-  isFinished('crypticcoind.exe', 'crypticcoind', 'crypticcoind').then(() => {
-    return isFinished('crypticcoin-cli.exe', 'crypticcoin-cli', 'crypticcoin-cli')
-  }).then(() => {
+  killDaemon()
+
+  isFinishedDaemonAndCli().then(() => {
     if (process.platform === 'win32') {
       createProc(`${process.resourcesPath}/crypticcoind.exe`, ['-reindex'])
     } else {
@@ -280,25 +292,10 @@ ipcMain.on('request-reindex', (event, arg) => {
 })
 
 ipcMain.on('request-rescan', (event, arg) => {
-  while (ccProcess && !ccProcess.killed) {
-    try {
-      if (process.platform === 'win32') {
-        runCli(`${process.resourcesPath}/crypticcoin-cli.exe`, 'stop', true)
-        break
-      } else {
-        runCli(`${process.resourcesPath}/crypticcoin-cli`, 'stop', true)
-        break
-//        process.kill(-(ccProcess.pid), 'SIGINT')
-      }
-    } catch (e) {
-      log.info(e)
-      break
-    }
-  }
 
-  isFinished('crypticcoind.exe', 'crypticcoind', 'crypticcoind').then(() => {
-    return isFinished('crypticcoin-cli.exe', 'crypticcoin-cli', 'crypticcoin-cli')
-  }).then(() => {
+  killDaemon()
+
+  isFinishedDaemonAndCli().then(() => {
     if (process.platform === 'win32') {
       createProc(`${process.resourcesPath}/crypticcoind.exe`, ['-rescan'])
     } else {
