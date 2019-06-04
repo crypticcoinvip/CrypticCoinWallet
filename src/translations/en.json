@@ -130,7 +130,7 @@
       "button": "Import",
       "explain": "Upload exported keys if you want to restore wallet data",
       "success": "Keys successfully imported",
-      "done": "Please do Rescan wallet (Settings->Check) to finish operation",
+      "done": "There is no need for additional wallet Rescan after import",
       "progress": "Import... Please wait...",
       "error": "Keys import failed"
     },

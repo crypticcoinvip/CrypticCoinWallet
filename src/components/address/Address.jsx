@@ -60,6 +60,7 @@ class Address extends React.Component {
       address = '',
       amount = 0,
       confirmations = 0,
+      utxo_count = 0,
       type = 't',
       AddressStore,
     } = this.props
@@ -133,7 +134,7 @@ class Address extends React.Component {
                   letterSpacing: '1px',
                 }}
               >
-                {T.default.translate('address.confirmations')}{' '}{confirmations}
+                {T.default.translate('address.confirmations')}{' '}{confirmations}{' ('}{utxo_count}{')'}
               </span>
             </TextContainer>
           </div>          

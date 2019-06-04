@@ -144,6 +144,7 @@ var Client = /** @class */ (function (_super) {
         return {
           address,
           confirmations: 0,
+          utxo_count: 0,
           amount: 0,
           type: "t",
           spendable: false
@@ -155,6 +156,7 @@ var Client = /** @class */ (function (_super) {
           return {
             address,
             confirmations: 0,
+            utxo_count: 0,
             amount: 0,
             type: "c",
             spendable: false
@@ -170,6 +172,7 @@ var Client = /** @class */ (function (_super) {
             addresses[j].spendable = utxo_entry[i].spendable;
             addresses[j].amount += utxo_entry[i].amount;
             addresses[j].confirmations += utxo_entry[i].confirmations;
+            addresses[j].utxo_count++;
             found_utxo = true;
             break;
           }
@@ -178,6 +181,7 @@ var Client = /** @class */ (function (_super) {
           addresses.push({
             address: utxo_entry[i].address,
             confirmations: utxo_entry[i].confirmations,
+            utxo_count: 0,
             amount: utxo_entry[i].amount,
             type: utxo_entry[i].jsindex ? "c" : "t",
             spendable: false

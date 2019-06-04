@@ -27,7 +27,7 @@
 
   !define MUI_ABORTWARNING
   !define NAME "CrypticCoin"
-  !define PRODUCT_VERSION "2.2.1"
+  !define PRODUCT_VERSION "2.2.2"
   !define MANUFACTURER "Integral Team"
   !define PRODUCT_SITE "https://crypticcoin.io/"
 !ifndef PRODUCT_UNINST_KEY
