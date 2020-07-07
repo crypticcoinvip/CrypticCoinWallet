@@ -116,7 +116,7 @@
     "cross-spawn": "^6.0.5",
     "css-loader": "^1.0.0",
     "detect-port": "^1.2.3",
-    "electron": "^2.0.8",
+    "electron": "^7.2.4",
     "electron-builder": "^20.40.2",
     "electron-devtools-installer": "^2.2.4",
     "electron-installer-debian": "^0.8.1",
